@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.nozimy.vegandelivery.di.app.AppComponent;
 import com.nozimy.vegandelivery.di.app.AppModule;
+import com.nozimy.vegandelivery.di.app.DaggerAppComponent;
 import com.nozimy.vegandelivery.di.app.DatabaseModule;
 
 
@@ -19,7 +20,7 @@ public class App extends Application {
     }
 
     private void initDependencies(){
-        appComponent = DaggerAppComponent.builder() // TODO: Почему не находит DaggerAppComponent?
+        appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this.getBaseContext()))
                 .databaseModule(new DatabaseModule())
                 .build();

@@ -8,5 +8,5 @@ import dagger.Subcomponent;
 @FragmentScope
 @Subcomponent(modules = {PlacesModule.class})
 public interface PlacesComponent {
-//    void inject(HomeFragment homeFragment);
+    void inject(HomeFragment homeFragment);
 }

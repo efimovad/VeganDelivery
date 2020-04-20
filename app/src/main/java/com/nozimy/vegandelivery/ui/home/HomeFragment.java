@@ -13,6 +13,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.nozimy.vegandelivery.R;
+import com.nozimy.vegandelivery.interactors.places.PlacesListInteractor;
+
+import javax.inject.Inject;
 
 public class HomeFragment extends Fragment {
 

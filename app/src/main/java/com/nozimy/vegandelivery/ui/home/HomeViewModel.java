@@ -15,11 +15,11 @@ public class HomeViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    private PlacesListInteractor mPlacesListInteractor;
+//    private PlacesListInteractor mPlacesListInteractor;
 
     @Inject
-    public HomeViewModel(PlacesListInteractor placesListInteractor) {
-        this.mPlacesListInteractor = placesListInteractor;
+    public HomeViewModel() {
+//        this.mPlacesListInteractor = placesListInteractor;
         mText = new MutableLiveData<>();
         mText.setValue("This is home fragment");
     }
@@ -28,7 +28,7 @@ public class HomeViewModel extends ViewModel {
         return mText;
     }
 
-    public LiveData<List<PlaceEntity>> getPlaces(){
-        return this.mPlacesListInteractor.getPlaces();
-    }
+//    public LiveData<List<PlaceEntity>> getPlaces(){
+//        return this.mPlacesListInteractor.getPlaces();
+//    }
 }
