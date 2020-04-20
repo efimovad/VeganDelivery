@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "com.nozimy.vegandelivery"
         minSdkVersion 21
@@ -10,6 +10,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "DATA_BASE_NAME", '"vegan-delivery-db"'
     }
     buildTypes {
         release {
@@ -30,4 +32,24 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
+
+    def room_version = "2.2.5"
+    implementation "androidx.room:room-runtime:$room_version"
+    // optional - RxJava support for Room
+    implementation "androidx.room:room-rxjava2:$room_version"
+    // Test helpers
+    testImplementation "androidx.room:room-testing:$room_version"
+
+    def daggerVer = 2.27
+    api "com.google.dagger:dagger:$daggerVer"
+    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVer"
+    api "com.google.dagger:dagger-android:$daggerVer"
+    api "com.google.dagger:dagger-android-support:$daggerVer" // if you use the support libraries
+    annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVer"
+
+//    implementation "com.google.dagger:dagger-android:$daggerVer"
+//    implementation "com.google.dagger:dagger-android-support:$daggerVer" // if you use the support libraries
+//    annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVer"
+//    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVer"
 }
