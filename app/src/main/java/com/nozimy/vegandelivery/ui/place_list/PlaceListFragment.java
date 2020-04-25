@@ -46,7 +46,7 @@ public class PlaceListFragment extends Fragment implements PlaceAdapter.AdapterL
         );
 
         // TODO: fix mock
-        Place place = new PlaceEntity(1,"Test name", 25, 499, 3.4f);
+        Place place = new PlaceEntity(1,"Веганга", 25, 499, 3.4f);
         final List<Place> place_list = Arrays.asList(place, place, place, place);
 
         adapter = new PlaceAdapter(place_list);
