@@ -17,14 +17,41 @@ public class PlaceEntity implements Place {
     @ColumnInfo(name = "name")
     private String name;
 
+    @ColumnInfo(name = "deliveryTime")
+    private int deliveryTime;
+
+    @ColumnInfo(name = "minOrderCost")
+    private int minOrderCost;
+
+    @ColumnInfo(name = "grade")
+    private float grade;
+
     @Override
     public String getName() {
-        return null;
+        return this.name;
     }
 
-    public PlaceEntity(String id, String name){
-        this.id = id;
+    @Override
+    public String getDeliveryTime() {
+        return String.format("%d мин", this.deliveryTime);
+    }
+
+    @Override
+    public String getMinOrderCost() {
+        return String.format("Заказ от %d \\u20BD", this.minOrderCost);
+    }
+
+    @Override
+    public String getGrade() {
+        return String.format("%.2f", this.grade);
+    }
+
+    public PlaceEntity(int id, String name, int time, int cost, float grade){
+        //this.id = id;
         this.name = name;
+        this.deliveryTime = time;
+        this.minOrderCost = cost;
+        this.grade = grade;
     }
 
 
