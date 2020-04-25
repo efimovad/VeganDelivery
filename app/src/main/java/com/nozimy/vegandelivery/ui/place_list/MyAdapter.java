@@ -59,6 +59,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyHolder> {
 
         holder.name.setText(place.getName());
         holder.deliveryTime.setText(place.getDeliveryTime());
+        holder.grade.setText(place.getGrade());
+        holder.minOrderCost.setText(place.getMinOrderCost());
         holder.bindClickListener(position);
     }
 

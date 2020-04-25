@@ -20,4 +20,10 @@
         <item name="android:textSize">14dp</item>
     </style>
 
+    <style name="PinkText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorLightPink</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14dp</item>
+    </style>
+
 </resources>
