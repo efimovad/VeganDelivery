@@ -38,7 +38,7 @@ public class DishEntity implements Dish {
 
     @Override
     public String getCost() {
-        return String.format("Заказ от %d \\u20BD", this.cost);
+        return String.format("%d \u20BD", this.cost);
     }
 
     @Override
@@ -50,6 +50,9 @@ public class DishEntity implements Dish {
     public String getСalories() {
         return String.format("%d ккал", this.calories);
     }
+
+    @Override
+    public String getIngredients() {return this.ingredients;}
 
     public DishEntity(String name, int cost, int calories, int weight, String ingredients){
         this.name = name;

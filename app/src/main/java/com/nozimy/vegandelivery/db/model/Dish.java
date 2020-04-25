@@ -5,4 +5,5 @@ public interface Dish {
     String getCost();
     String getWeight();
     String getСalories();
+    String getIngredients();
 }

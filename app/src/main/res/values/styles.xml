@@ -26,4 +26,10 @@
         <item name="android:textSize">14dp</item>
     </style>
 
+    <style name="DishText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorGrey</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">25dp</item>
+    </style>
+
 </resources>
