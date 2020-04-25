@@ -3,6 +3,8 @@ package com.nozimy.vegandelivery;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.nozimy.vegandelivery.db.model.Place;
+import com.nozimy.vegandelivery.ui.place_list.PlaceListFragment;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -10,7 +12,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-public class BottomNavActivity extends AppCompatActivity {
+public class BottomNavActivity extends AppCompatActivity implements PlaceListFragment.ListFragmentListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,4 +29,8 @@ public class BottomNavActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
     }
 
+    @Override
+    public void onDetailsItem(Place place) {
+
+    }
 }

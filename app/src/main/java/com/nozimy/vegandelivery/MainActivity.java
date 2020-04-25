@@ -16,20 +16,19 @@ public class MainActivity extends AppCompatActivity implements PlaceListFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Intent intent = new Intent(this, BottomNavActivity.class);
+        Intent intent = new Intent(this, BottomNavActivity.class);
+        startActivity(intent);
 
-        //startActivity(intent);
-
-        list = new PlaceListFragment();
-        list.setListener(this);
+//        list = new PlaceListFragment();
+//        list.setListener(this);
 
         //details = new DetailsFragment();
         //details.setListener(this);
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, list)
-                .commit();
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .replace(R.id.fragment_container, list)
+//                .commit();
 
     }
 

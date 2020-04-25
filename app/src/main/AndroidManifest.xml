@@ -13,9 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents">
         <activity
-            android:name=".MainActivity"
+            android:name=".BottomNavActivity"
             android:label="@string/title_activity_bottom_nav"/>
-        <activity android:name=".AuthActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
