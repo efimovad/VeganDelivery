@@ -3,6 +3,7 @@ package com.nozimy.vegandelivery.ui.dish_list;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -10,23 +11,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.nozimy.vegandelivery.R;
 import com.nozimy.vegandelivery.db.model.Dish;
-import com.nozimy.vegandelivery.db.model.Place;
 
 import java.util.List;
 
 public class DishAdapter extends RecyclerView.Adapter<com.nozimy.vegandelivery.ui.dish_list.DishAdapter.MyHolder> {
-    private com.nozimy.vegandelivery.ui.dish_list.DishAdapter.AdapterListener listener;
+    private DishListener listener;
     private List<Dish> dishes;
 
     DishAdapter(List<Dish> list) {
         this.dishes = list;
     }
 
-    public interface AdapterListener {
+    public interface DishListener {
         void onItemClick(Dish dish);
+        void loadDishImage(ImageView view, String url);
     }
 
-    public void setListener(com.nozimy.vegandelivery.ui.dish_list.DishAdapter.AdapterListener listener) {
+    public void setListener(DishListener listener) {
         this.listener = listener;
     }
 
@@ -60,6 +61,8 @@ public class DishAdapter extends RecyclerView.Adapter<com.nozimy.vegandelivery.u
         holder.cost.setText(dish.getCost());
         holder.ingredients.setText(dish.getIngredients());
 
+        listener.loadDishImage(holder.image, dish.getImage());
+
         holder.bindClickListener(position);
     }
 
@@ -74,12 +77,14 @@ public class DishAdapter extends RecyclerView.Adapter<com.nozimy.vegandelivery.u
         private TextView ingredients;
         private TextView calories;
         private TextView weight;
+        private ImageView image;
 
         public MyHolder(@NonNull View itemView, int viewType) {
             super(itemView);
             name = itemView.findViewById(R.id.dish_name);
             cost = itemView.findViewById(R.id.dish_cost);
             ingredients = itemView.findViewById(R.id.dish_ingredients);
+            image = itemView.findViewById(R.id.dish_avatar);
         }
 
         // TODO: check why need final

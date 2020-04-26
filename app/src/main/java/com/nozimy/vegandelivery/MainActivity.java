@@ -3,12 +3,20 @@ package com.nozimy.vegandelivery;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.widget.ImageView;
 
 import com.nozimy.vegandelivery.db.model.Dish;
 import com.nozimy.vegandelivery.db.model.Place;
 import com.nozimy.vegandelivery.ui.dish_list.DishListFragment;
 import com.nozimy.vegandelivery.ui.place_list.PlaceListFragment;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity implements DishListFragment.ListFragmentListener,
         PlaceListFragment.ListFragmentListener {
@@ -43,6 +51,12 @@ public class MainActivity extends AppCompatActivity implements DishListFragment.
     }
 
     @Override
+    public void loadImage(ImageView view, String url) {
+        LoadImage loadImage = new LoadImage(view);
+        loadImage.execute(url);
+    }
+
+    @Override
     public void onDetailsItem(Place place) {
         getSupportFragmentManager()
                 .beginTransaction()
@@ -50,3 +64,30 @@ public class MainActivity extends AppCompatActivity implements DishListFragment.
                 .commit();
     }
 }
+
+class LoadImage extends AsyncTask<String, Void, Bitmap> {
+    ImageView imageView;
+
+    public LoadImage(ImageView ivResult) {
+        this.imageView = ivResult;
+    }
+
+    @Override
+    protected Bitmap doInBackground(String... strings) {
+        String url = strings[0];
+        Bitmap bitmap = null;
+        try {
+            InputStream inputStream = new URL(url).openStream();
+            bitmap = BitmapFactory.decodeStream(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bitmap;
+    }
+
+    @Override
+    protected void onPostExecute(Bitmap bitmap) {
+        this.imageView.setImageBitmap(bitmap);
+    }
+}
+

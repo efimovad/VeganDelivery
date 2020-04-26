@@ -6,4 +6,5 @@ public interface Dish {
     String getWeight();
     String getСalories();
     String getIngredients();
+    String getImage();
 }

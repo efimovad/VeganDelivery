@@ -1,5 +1,10 @@
 package com.nozimy.vegandelivery.db.entity;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -7,6 +12,10 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import com.nozimy.vegandelivery.db.model.Dish;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 
 @Entity(tableName = "places", indices = {@Index("name")})
 public class DishEntity implements Dish {
@@ -28,6 +37,9 @@ public class DishEntity implements Dish {
 
     @ColumnInfo(name = "ingredients")
     private String ingredients;
+
+    @ColumnInfo(name = "image")
+    private String image;
 
     @ColumnInfo(name = "")
 
@@ -54,11 +66,16 @@ public class DishEntity implements Dish {
     @Override
     public String getIngredients() {return this.ingredients;}
 
-    public DishEntity(String name, int cost, int calories, int weight, String ingredients){
+    @Override
+    public String getImage() {return this.image;}
+
+    public DishEntity(String name, int cost, int calories,
+                      int weight, String ingredients, String imageURL){
         this.name = name;
         this.cost = cost;
         this.calories = calories;
         this.weight = weight;
         this.ingredients = ingredients;
+        this.image = imageURL;
     }
 }
