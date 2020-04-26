@@ -17,7 +17,7 @@
             android:id="@+id/place_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
+            app:cardCornerRadius="20dp"
             app:cardElevation="2dp"
             >
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -26,7 +26,8 @@
                 android:orientation="vertical">
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="200dp">
+                    android:layout_height="200dp"
+                    >
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -44,25 +45,26 @@
                         tools:text="@string/cafe_name"
                         android:layout_marginStart="12dp"
                         style="@style/TitleText"
-                        android:layout_weight="0.2"/>
+                        android:layout_weight="0.3"/>
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_weight="0.8"
                         android:layout_gravity="center">
-                        <TextView
-                            style="@style/PinkText"
-                            android:id="@+id/place_delivery_time"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            tools:text="@string/cafe_delivery_time"
-                            android:layout_gravity="center"/>
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_clock"
                             android:tint="@color/colorLightPink"/>
+                        <TextView
+                            style="@style/PinkText"
+                            android:id="@+id/place_delivery_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            tools:text="@string/cafe_delivery_time"
+                            android:layout_gravity="center"/>
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
