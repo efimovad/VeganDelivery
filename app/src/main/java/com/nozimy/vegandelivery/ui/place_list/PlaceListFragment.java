@@ -19,11 +19,11 @@ import com.nozimy.vegandelivery.db.model.Place;
 import java.util.Arrays;
 import java.util.List;
 
-public class PlaceListFragment extends Fragment implements MyAdapter.AdapterListener {
+public class PlaceListFragment extends Fragment implements PlaceAdapter.AdapterListener {
     private ListFragmentListener listener;
 
     private RecyclerView list;
-    private MyAdapter adapter;
+    private PlaceAdapter adapter;
 
     @Override
     public void onItemClick(Place place) {
@@ -46,10 +46,10 @@ public class PlaceListFragment extends Fragment implements MyAdapter.AdapterList
         );
 
         // TODO: fix mock
-        Place place = new PlaceEntity(1,"Test name", 25, 499, 3.4f);
+        Place place = new PlaceEntity(1,"Веганга", 25, 499, 3.4f);
         final List<Place> place_list = Arrays.asList(place, place, place, place);
 
-        adapter = new MyAdapter(place_list);
+        adapter = new PlaceAdapter(place_list);
         adapter.setListener(this);
         list.setAdapter(adapter);
 

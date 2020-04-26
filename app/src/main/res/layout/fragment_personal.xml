@@ -4,29 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.personal.PersonalFragment">
+    tools:context=".ui.personal.PersonalFragment"
+    android:id="@+id/personal">
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/personal_list"
-        tools:listitem="@layout/recyclerview_item_personal"
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/personal_list"-->
+<!--        tools:listitem="@layout/recyclerview_item_personal"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        tools:layout_editor_absoluteX="1dp"-->
+<!--        tools:layout_editor_absoluteY="1dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
-        android:text="Выйти"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:gravity="center"
+        android:text="Personal fragment"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

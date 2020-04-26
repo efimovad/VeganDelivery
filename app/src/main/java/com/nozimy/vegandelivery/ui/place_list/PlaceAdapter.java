@@ -1,12 +1,10 @@
 package com.nozimy.vegandelivery.ui.place_list;
 
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -15,11 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.nozimy.vegandelivery.R;
 import com.nozimy.vegandelivery.db.model.Place;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyHolder> {
+public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyHolder> {
     private AdapterListener listener;
     private List<Place> places;
 
-    MyAdapter(List<Place> list) {
+    PlaceAdapter(List<Place> list) {
         this.places = list;
     }
 
@@ -59,6 +57,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyHolder> {
 
         holder.name.setText(place.getName());
         holder.deliveryTime.setText(place.getDeliveryTime());
+        holder.grade.setText(place.getGrade());
+        holder.minOrderCost.setText(place.getMinOrderCost());
         holder.bindClickListener(position);
     }
 

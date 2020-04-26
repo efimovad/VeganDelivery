@@ -38,7 +38,7 @@ public class PlaceEntity implements Place {
 
     @Override
     public String getMinOrderCost() {
-        return String.format("Заказ от %d \\u20BD", this.minOrderCost);
+        return String.format("Заказ от %d \u20BD", this.minOrderCost);
     }
 
     @Override

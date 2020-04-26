@@ -1,22 +1,21 @@
-package com.nozimy.vegandelivery.ui.dashboard;
+package com.nozimy.vegandelivery.ui.basket;
 
 import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.nozimy.vegandelivery.interactors.places.PlacesListInteractor;
 import com.nozimy.vegandelivery.interactors.places.PlacesListInteractorDefault;
 
-public class DashboardViewModel extends AndroidViewModel {
+public class BasketViewModel extends AndroidViewModel {
 
     private PlacesListInteractor interactor = PlacesListInteractorDefault.getInstance(getApplication());
 
     private MutableLiveData<String> mText;
 
-    public DashboardViewModel(Application application) {
+    public BasketViewModel(Application application) {
         super(application);
         mText = new MutableLiveData<>();
         mText.setValue("This is dashboard fragment");
