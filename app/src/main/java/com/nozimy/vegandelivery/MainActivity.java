@@ -1,49 +1,75 @@
 package com.nozimy.vegandelivery;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.ImageView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.nozimy.vegandelivery.db.model.Dish;
 import com.nozimy.vegandelivery.db.model.Place;
+import com.nozimy.vegandelivery.ui.basket.BasketFragment;
 import com.nozimy.vegandelivery.ui.dish_list.DishListFragment;
+import com.nozimy.vegandelivery.ui.home.HomeFragment;
+import com.nozimy.vegandelivery.ui.personal.PersonalFragment;
 import com.nozimy.vegandelivery.ui.place_list.PlaceListFragment;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-public class MainActivity extends AppCompatActivity implements DishListFragment.ListFragmentListener,
-        PlaceListFragment.ListFragmentListener {
-
-    private DishListFragment dishList;
-    private PlaceListFragment placeList;
+public class MainActivity extends AppCompatActivity
+        implements DishListFragment.ListFragmentListener, PlaceListFragment.ListFragmentListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Intent intent = new Intent(this, BottomNavActivity.class);
-        //startActivity(intent);
 
-        dishList = new DishListFragment();
-        dishList.setListener(this);
+        BottomNavigationView bottomNav = findViewById(R.id.navigation_view);
+        bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        placeList = new PlaceListFragment();
-        placeList.setListener(this);
 
+        PlaceListFragment placeList = new PlaceListFragment();
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, placeList)
                 .commit();
-
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment selected =  null;
+
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    selected = new PlaceListFragment();
+                    break;
+                case R.id.navigation_basket:
+                    selected = new BasketFragment();
+                    break;
+                case R.id.navigation_account:
+                    selected = new PersonalFragment();
+                    break;
+            }
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, selected)
+                    .commit();
+
+            return true;
+        }
+    };
 
     @Override
     public void onDetailsItem(Dish dish) {
@@ -58,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements DishListFragment.
 
     @Override
     public void onDetailsItem(Place place) {
+        DishListFragment dishList = new DishListFragment();
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, dishList)

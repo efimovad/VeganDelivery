@@ -12,7 +12,7 @@ import com.nozimy.vegandelivery.db.model.Place;
 public class PlaceEntity implements Place {
     @PrimaryKey
     @NonNull
-    private String id;
+    private int id;
 
     @ColumnInfo(name = "name")
     private String name;
@@ -46,11 +46,35 @@ public class PlaceEntity implements Place {
         return String.format("%.2f", this.grade);
     }
 
-    public PlaceEntity(int id, String name, int time, int cost, float grade){
-        //this.id = id;
+    public PlaceEntity(int id, String name, int deliveryTime, int minOrderCost, float grade){
+        this.id = id;
         this.name = name;
-        this.deliveryTime = time;
-        this.minOrderCost = cost;
+        this.deliveryTime = deliveryTime;
+        this.minOrderCost = minOrderCost;
+        this.grade = grade;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDeliveryTime(int deliveryTime) {
+        this.deliveryTime = deliveryTime;
+    }
+
+    public void setMinOrderCost(int minOrderCost) {
+        this.minOrderCost = minOrderCost;
+    }
+
+    public void setGrade(float grade) {
         this.grade = grade;
     }
 }
