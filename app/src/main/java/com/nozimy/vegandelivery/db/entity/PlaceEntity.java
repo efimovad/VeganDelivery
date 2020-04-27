@@ -42,7 +42,7 @@ public class PlaceEntity implements Place {
         return String.format("Заказ от %d \u20BD", this.minOrderCost);
     }
 
-//    @Override
+    @Override
     public String getGradeString() {
         return String.format("%.2f", this.grade);
     }

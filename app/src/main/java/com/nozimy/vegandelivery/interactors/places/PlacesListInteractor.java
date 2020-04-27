@@ -6,13 +6,9 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.nozimy.vegandelivery.db.entity.DishEntity;
 import com.nozimy.vegandelivery.db.entity.PlaceEntity;
-import com.nozimy.vegandelivery.db.model.Dish;
 import com.nozimy.vegandelivery.db.model.Place;
-import com.nozimy.vegandelivery.interactors.BaseInteractor;
 import com.nozimy.vegandelivery.network.ApiRepo;
-import com.nozimy.vegandelivery.network.DishesApi;
 import com.nozimy.vegandelivery.network.PlacesApi;
 
 import java.text.ParseException;
