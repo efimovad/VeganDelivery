@@ -31,18 +31,19 @@ public class PlaceEntity implements Place {
         return this.name;
     }
 
+
     @Override
-    public String getDeliveryTime() {
+    public String getDeliveryTimeString() {
         return String.format("%d мин", this.deliveryTime);
     }
 
     @Override
-    public String getMinOrderCost() {
+    public String getMinOrderCostString() {
         return String.format("Заказ от %d \u20BD", this.minOrderCost);
     }
 
-    @Override
-    public String getGrade() {
+//    @Override
+    public String getGradeString() {
         return String.format("%.2f", this.grade);
     }
 
@@ -76,5 +77,17 @@ public class PlaceEntity implements Place {
 
     public void setGrade(float grade) {
         this.grade = grade;
+    }
+
+    public int getDeliveryTime() {
+        return deliveryTime;
+    }
+
+    public int getMinOrderCost() {
+        return minOrderCost;
+    }
+
+    public float getGrade() {
+        return grade;
     }
 }

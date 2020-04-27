@@ -19,6 +19,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyHolder> {
 
     public void setPlaceList(List<Place> places) {
         mPlaces = places;
+        notifyDataSetChanged();
     }
 
     public interface AdapterListener {
@@ -56,9 +57,9 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyHolder> {
         Place place = mPlaces.get(position);
 
         holder.name.setText(place.getName());
-        holder.deliveryTime.setText(place.getDeliveryTime());
-        holder.grade.setText(place.getGrade());
-        holder.minOrderCost.setText(place.getMinOrderCost());
+        holder.deliveryTime.setText(place.getDeliveryTimeString());
+        holder.grade.setText(place.getGradeString());
+        holder.minOrderCost.setText(place.getMinOrderCostString());
         holder.bindClickListener(position);
     }
 

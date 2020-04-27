@@ -17,11 +17,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-@Entity(tableName = "places", indices = {@Index("name")})
+@Entity(tableName = "dishes", indices = {@Index("name")})
 public class DishEntity implements Dish {
     @PrimaryKey
     @NonNull
-    private String id;
+    private int id;
 
     @ColumnInfo(name = "name")
     private String name;
@@ -41,20 +41,18 @@ public class DishEntity implements Dish {
     @ColumnInfo(name = "image")
     private String image;
 
-    @ColumnInfo(name = "")
-
     @Override
     public String getName() {
         return this.name;
     }
 
     @Override
-    public String getCost() {
+    public String getCostString() {
         return String.format("%d \u20BD", this.cost);
     }
 
     @Override
-    public String getWeight() {
+    public String getWeightString() {
         return String.format("%d г", this.weight);
     }
 
@@ -77,5 +75,60 @@ public class DishEntity implements Dish {
         this.weight = weight;
         this.ingredients = ingredients;
         this.image = imageURL;
+    }
+
+    public DishEntity(int id, String name, int cost, int weight, int calories, String ingredients, String image) {
+        this.id = id;
+        this.name = name;
+        this.cost = cost;
+        this.weight = weight;
+        this.calories = calories;
+        this.ingredients = ingredients;
+        this.image = image;
+    }
+
+    @NonNull
+    public int getId() {
+        return id;
+    }
+
+    public void setId(@NonNull int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public int getCalories() {
+        return calories;
+    }
+
+    public void setCalories(int calories) {
+        this.calories = calories;
+    }
+
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public int getWeight() {
+        return weight;
     }
 }

@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nozimy.vegandelivery.R;
-import com.nozimy.vegandelivery.db.entity.DishEntity;
 import com.nozimy.vegandelivery.db.model.Dish;
 
 import java.util.ArrayList;
@@ -60,8 +59,8 @@ public class DishAdapter extends RecyclerView.Adapter<com.nozimy.vegandelivery.u
         Dish dish = dishes.get(position);
 
         holder.name.setText(dish.getName());
-        holder.cost.setText(dish.getCost());
-        holder.params.setText(dish.getWeight()+ " " +dish.getСalories());
+        holder.cost.setText(dish.getCostString());
+        holder.params.setText(dish.getWeightString()+ " " +dish.getСalories());
 
         listener.loadDishImage(holder.image, dish.getImage());
 

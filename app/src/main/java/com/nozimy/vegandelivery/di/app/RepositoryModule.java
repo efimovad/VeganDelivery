@@ -10,9 +10,9 @@ import dagger.Provides;
 
 @Module
 public class RepositoryModule {
-    @Provides
-    @Singleton
-    DataRepository provideRepository(AppDatabase appDatabase){
-        return new DataRepository(appDatabase);
-    }
+//    @Provides
+//    @Singleton
+//    DataRepository provideRepository(AppDatabase appDatabase){
+//        return new DataRepository(appDatabase);
+//    }
 }

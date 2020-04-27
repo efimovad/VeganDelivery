@@ -2,8 +2,8 @@ package com.nozimy.vegandelivery.db.model;
 
 public interface Dish {
     String getName();
-    String getCost();
-    String getWeight();
+    String getCostString();
+    String getWeightString();
     String getСalories();
     String getIngredients();
     String getImage();

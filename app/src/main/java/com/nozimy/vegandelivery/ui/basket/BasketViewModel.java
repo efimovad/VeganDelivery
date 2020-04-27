@@ -6,12 +6,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.nozimy.vegandelivery.interactors.places.PlacesListInteractor;
-import com.nozimy.vegandelivery.interactors.places.PlacesListInteractorDefault;
-
 public class BasketViewModel extends AndroidViewModel {
-
-    private PlacesListInteractor interactor = PlacesListInteractorDefault.getInstance(getApplication());
 
     private MutableLiveData<String> mText;
 
