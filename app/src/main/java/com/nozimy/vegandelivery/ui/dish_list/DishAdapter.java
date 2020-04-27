@@ -59,7 +59,7 @@ public class DishAdapter extends RecyclerView.Adapter<com.nozimy.vegandelivery.u
 
         holder.name.setText(dish.getName());
         holder.cost.setText(dish.getCost());
-        holder.ingredients.setText(dish.getIngredients());
+        holder.params.setText(dish.getWeight()+ " " +dish.getСalories());
 
         listener.loadDishImage(holder.image, dish.getImage());
 
@@ -75,15 +75,14 @@ public class DishAdapter extends RecyclerView.Adapter<com.nozimy.vegandelivery.u
         private TextView name;
         private TextView cost;
         private TextView ingredients;
-        private TextView calories;
-        private TextView weight;
+        private TextView params;
         private ImageView image;
 
         public MyHolder(@NonNull View itemView, int viewType) {
             super(itemView);
             name = itemView.findViewById(R.id.dish_name);
             cost = itemView.findViewById(R.id.dish_cost);
-            ingredients = itemView.findViewById(R.id.dish_ingredients);
+            params = itemView.findViewById(R.id.dish_params);
             image = itemView.findViewById(R.id.dish_avatar);
         }
 
