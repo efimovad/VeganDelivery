@@ -69,6 +69,7 @@ public class PlaceListFragment extends Fragment implements PlaceAdapter.AdapterL
             public void onChanged(List<Place> places) {
                 if (places != null) {
                     adapter.setPlaceList(places);
+                    mPlaceList = places;
                 }
             }
         };
