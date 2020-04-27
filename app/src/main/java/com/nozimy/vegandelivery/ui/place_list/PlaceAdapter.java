@@ -15,10 +15,10 @@ import com.nozimy.vegandelivery.db.model.Place;
 
 public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyHolder> {
     private AdapterListener listener;
-    private List<Place> places;
+    private List<Place> mPlaces;
 
-    PlaceAdapter(List<Place> list) {
-        this.places = list;
+    public void setPlaceList(List<Place> places) {
+        mPlaces = places;
     }
 
     public interface AdapterListener {
@@ -30,9 +30,9 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyHolder> {
     }
 
     public void updateWith(List<Place> newPlaces) {
-        places.clear();
-        places.addAll(newPlaces);
-        notifyItemInserted(places.size()-1);
+        mPlaces.clear();
+        mPlaces.addAll(newPlaces);
+        notifyItemInserted(mPlaces.size()-1);
     }
 
     //public void addItem() {
@@ -53,7 +53,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
-        Place place = places.get(position);
+        Place place = mPlaces.get(position);
 
         holder.name.setText(place.getName());
         holder.deliveryTime.setText(place.getDeliveryTime());
@@ -64,7 +64,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyHolder> {
 
     @Override
     public int getItemCount() {
-        return places.size();
+        return mPlaces.size();
     }
 
     class MyHolder extends RecyclerView.ViewHolder {
@@ -86,7 +86,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyHolder> {
         void bindClickListener(final int pos) {
             itemView.findViewById(R.id.place_card).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    listener.onItemClick(places.get(pos));
+                    listener.onItemClick(mPlaces.get(pos));
                 }
             });
         }

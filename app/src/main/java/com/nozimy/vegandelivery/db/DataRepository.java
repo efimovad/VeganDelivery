@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import com.nozimy.vegandelivery.db.entity.PlaceEntity;
+import com.nozimy.vegandelivery.db.model.Place;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class DataRepository {
         this.mDatabase = database;
     }
 
-    public LiveData<List<PlaceEntity>> getPlaces(){
+    public LiveData<List<Place>> getPlaces(){
         return this.mDatabase.placeDao().getAll();
     }
 }

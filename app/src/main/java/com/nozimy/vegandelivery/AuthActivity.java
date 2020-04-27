@@ -19,8 +19,6 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
 public class AuthActivity extends AppCompatActivity {
-
-
     private static final String TAG = "";
     private static final int RC_SIGN_IN = 0 ;
     private GoogleSignInClient mGoogleSignInClient;

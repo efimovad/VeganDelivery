@@ -19,10 +19,9 @@ public interface PlacesApi {
     }
 
     class PlacesResponse {
-        List<PlacePlain> places;
+        public List<PlacePlain> places;
     }
 
     @GET("/api/v1/places")
-    Call<PlacesResponse> getPlaces();
-
+    Call<PlacesResponse> getAll();
 }
