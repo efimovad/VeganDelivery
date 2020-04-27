@@ -12,27 +12,23 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.moshi.MoshiConverterFactory;
 
 public class ApiRepo {
-    static final String BACKEND_BASE_URL = "https://vegan-delivery-api.herokuapp.com/api/v1/";
+    static final String BACKEND_HOST = "vegan-delivery-api.herokuapp.com";
+    static final String PROTOCOL = "https";
 
     private final OkHttpClient mOkHttpClient;
     private final PlacesApi mPlacesApi;
     private final DishesApi mDishesApi;
 
     public ApiRepo(){
-
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl(BACKEND_BASE_URL)
-//                .addConverterFactory(MoshiConverterFactory.create())
-//                .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
-//                .build();
-
         mOkHttpClient = new OkHttpClient()
                 .newBuilder()
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(MoshiConverterFactory.create())
-                .baseUrl(BACKEND_BASE_URL)
+                .baseUrl(new HttpUrl.Builder().scheme(PROTOCOL)
+                        .host(BACKEND_HOST)
+                        .build())
                 .client(mOkHttpClient)
                 .build();
 

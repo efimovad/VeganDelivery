@@ -32,8 +32,7 @@ public class DishListFragment extends Fragment implements DishAdapter.DishListen
 
     private DishListViewModel mDishListViewModel;
 
-    public DishListFragment(List<Dish> dishList) {
-        mDishList = dishList;
+    public DishListFragment() {
     }
 
     @Override

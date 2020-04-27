@@ -22,7 +22,7 @@ public interface PlacesApi {
         List<PlacePlain> places;
     }
 
-    @GET("/places")
+    @GET("/api/v1/places")
     Call<PlacesResponse> getPlaces();
 
 }

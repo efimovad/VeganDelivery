@@ -13,11 +13,12 @@ import com.nozimy.vegandelivery.R;
 import com.nozimy.vegandelivery.db.entity.DishEntity;
 import com.nozimy.vegandelivery.db.model.Dish;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DishAdapter extends RecyclerView.Adapter<com.nozimy.vegandelivery.ui.dish_list.DishAdapter.MyHolder> {
     private DishListener listener;
-    private List<Dish> dishes;
+    private List<Dish> dishes = new ArrayList<>();;
 
     DishAdapter() {
 

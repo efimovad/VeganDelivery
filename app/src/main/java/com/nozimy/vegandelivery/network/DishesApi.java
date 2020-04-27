@@ -17,9 +17,9 @@ public interface DishesApi {
     }
 
     class DishesResponse {
-        public List<DishPlain> dishPlainList;
+        public List<DishPlain> dishes;
     }
 
-    @GET("/dishes")
+    @GET("/api/v1/dishes")
     Call<DishesResponse> getAll();
 }

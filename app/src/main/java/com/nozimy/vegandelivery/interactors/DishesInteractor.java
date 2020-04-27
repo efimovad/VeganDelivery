@@ -13,6 +13,7 @@ import com.nozimy.vegandelivery.network.DishesApi;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -25,10 +26,15 @@ public class DishesInteractor {
 
     private final static MutableLiveData<List<Dish>> mDishes = new MutableLiveData<>();
 
+    static {
+        mDishes.setValue(Collections.<Dish>emptyList());
+    }
+
 
     public DishesInteractor(Context context) {
         mContext = context;
         mDishesApi = ApiRepo.from(mContext).getDishesApi();
+        refresh();
     }
 
     public LiveData<List<Dish>> getDishes() {
@@ -53,7 +59,7 @@ public class DishesInteractor {
     }
 
     private static List<Dish> transform(DishesApi.DishesResponse dishesResponse) {
-        List<DishesApi.DishPlain> plains = dishesResponse.dishPlainList;
+        List<DishesApi.DishPlain> plains = dishesResponse.dishes;
         List<Dish> result = new ArrayList<>();
         for (DishesApi.DishPlain dishPlain : plains) {
             try {
