@@ -20,7 +20,7 @@ public class PersonalAdapter extends RecyclerView.Adapter<PersonalAdapter.Person
 
         private PersonalSettingViewHolder(View itemView) {
             super(itemView);
-            settingItemView = itemView.findViewById(R.id.textView);
+            settingItemView = itemView.findViewById(R.id.item);
         }
     }
 
