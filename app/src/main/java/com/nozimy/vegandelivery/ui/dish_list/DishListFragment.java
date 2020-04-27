@@ -25,6 +25,11 @@ public class DishListFragment extends Fragment implements DishAdapter.DishListen
 
     private RecyclerView list;
     private DishAdapter adapter;
+    private List<Dish> mDishList;
+
+    public DishListFragment(List<Dish> dishList) {
+        mDishList = dishList;
+    }
 
     @Override
     public void onItemClick(Dish dish) {
@@ -53,27 +58,27 @@ public class DishListFragment extends Fragment implements DishAdapter.DishListen
         );
 
         // TODO: fix mock
-        Dish dish1 = new DishEntity("Роллы с авокадо", 120, 1000,
-                600, "рис, авокадо, листы нориб рисовый уксус",
-                "https://sun9-22.userapi.com/impg/c857728/v857728939/17fd2c/eqjDfWVs6uo.jpg?size=520x0&quality=90&sign=69e67db5c2628abb50f6c3bca0e0654e");
+//        Dish dish1 = new DishEntity("Роллы с авокадо", 120, 1000,
+//                600, "рис, авокадо, листы нориб рисовый уксус",
+//                "https://sun9-22.userapi.com/impg/c857728/v857728939/17fd2c/eqjDfWVs6uo.jpg?size=520x0&quality=90&sign=69e67db5c2628abb50f6c3bca0e0654e");
+//
+//        Dish dish2 = new DishEntity("Роллы с авокадо", 120, 1000,
+//                600, "рис, авокадо, листы нориб рисовый уксус",
+//                "https://sun9-54.userapi.com/impg/c857128/v857128939/fad0c/LDPu6Bzygo0.jpg?size=520x0&quality=90&sign=3ca4a83204cb6a9657d0f81a83ea9c8e");
+//
+//        Dish dish3 = new DishEntity("Роллы с авокадо", 120, 1000,
+//                600, "рис, авокадо, листы нориб рисовый уксус",
+//                "https://sun9-59.userapi.com/impg/c205724/v205724939/859d0/eoEeTucq2U8.jpg?size=520x0&quality=90&sign=120c52b7584770474612118201cfeb58");
+//        final List<Dish> dish_list = Arrays.asList(dish1, dish2, dish3, dish1, dish2, dish3);
 
-        Dish dish2 = new DishEntity("Роллы с авокадо", 120, 1000,
-                600, "рис, авокадо, листы нориб рисовый уксус",
-                "https://sun9-54.userapi.com/impg/c857128/v857128939/fad0c/LDPu6Bzygo0.jpg?size=520x0&quality=90&sign=3ca4a83204cb6a9657d0f81a83ea9c8e");
-
-        Dish dish3 = new DishEntity("Роллы с авокадо", 120, 1000,
-                600, "рис, авокадо, листы нориб рисовый уксус",
-                "https://sun9-59.userapi.com/impg/c205724/v205724939/859d0/eoEeTucq2U8.jpg?size=520x0&quality=90&sign=120c52b7584770474612118201cfeb58");
-        final List<Dish> dish_list = Arrays.asList(dish1, dish2, dish3, dish1, dish2, dish3);
-
-        adapter = new DishAdapter(dish_list);
+        adapter = new DishAdapter(mDishList);
         adapter.setListener(this);
         list.setAdapter(adapter);
 
         Handler handler =  new Handler();
         Runnable myRunnable = new Runnable() {
             public void run() {
-                adapter.updateWith(dish_list);
+                adapter.updateWith(mDishList);
             }
         };
 
