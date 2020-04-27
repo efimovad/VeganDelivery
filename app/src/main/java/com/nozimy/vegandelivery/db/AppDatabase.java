@@ -8,11 +8,12 @@ import androidx.room.RoomDatabase;
 
 import com.nozimy.vegandelivery.db.dao.PlaceDao;
 import com.nozimy.vegandelivery.db.entity.PlaceEntity;
+import com.nozimy.vegandelivery.db.model.Place;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {PlaceEntity.class}, version = 1, exportSchema = false)
+@Database(entities = {Place.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract PlaceDao placeDao();
 

@@ -5,11 +5,12 @@ import androidx.room.Dao;
 import androidx.room.Query;
 
 import com.nozimy.vegandelivery.db.entity.PlaceEntity;
+import com.nozimy.vegandelivery.db.model.Place;
 
 import java.util.List;
 
 @Dao
 public interface PlaceDao {
     @Query("SELECT * FROM places")
-    LiveData<List<PlaceEntity>> getAll();
+    LiveData<List<Place>> getAll();
 }

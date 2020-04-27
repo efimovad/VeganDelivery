@@ -7,24 +7,27 @@ import androidx.lifecycle.LiveData;
 
 import com.nozimy.vegandelivery.app.App;
 import com.nozimy.vegandelivery.db.DataRepository;
-import com.nozimy.vegandelivery.db.entity.PlaceEntity;
+import com.nozimy.vegandelivery.db.model.Place;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class PlacesListInteractorDefault implements PlacesListInteractor {
+public class PlacesListInteractorDefault extends PlacesListInteractor {
     @NonNull
     private DataRepository mRepository;
 
-    @Inject
-    public PlacesListInteractorDefault(@NonNull DataRepository repository){
-        this.mRepository = repository;
+    public PlacesListInteractorDefault(Context context) {
+        super(context);
     }
 
+//    @Inject
+//    public PlacesListInteractorDefault(@NonNull DataRepository repository){
+//        this.mRepository = repository;
+//    }
+
     @Override
-    public LiveData<List<PlaceEntity>> getPlaces() {
+    public LiveData<List<Place>> getPlaces() {
         return mRepository.getPlaces();
     }
 

@@ -10,9 +10,9 @@ import dagger.Provides;
 
 @Module
 public class PlacesModule {
-    @Provides
-    @FragmentScope
-    PlacesListInteractor provideContactListInteractor(DataRepository dataRepository){
-        return new PlacesListInteractorDefault(dataRepository);
-    }
+//    @Provides
+//    @FragmentScope
+//    PlacesListInteractor provideContactListInteractor(DataRepository dataRepository){
+//        return new PlacesListInteractorDefault(dataRepository);
+//    }
 }
