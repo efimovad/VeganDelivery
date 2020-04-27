@@ -25,6 +25,7 @@ public class AuthActivity extends AppCompatActivity {
 
 
     public void  updateUI(GoogleSignInAccount account){
+        Log.d("updateUI", String.valueOf(account));
         if(account != null){
             Toast.makeText(this,"U Signed In successfully",Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, MainActivity.class));
@@ -98,7 +99,6 @@ public class AuthActivity extends AppCompatActivity {
             updateUI(null);
         }
     }
-
 
 
 }
