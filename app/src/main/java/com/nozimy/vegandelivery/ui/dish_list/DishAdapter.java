@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nozimy.vegandelivery.R;
+import com.nozimy.vegandelivery.db.entity.DishEntity;
 import com.nozimy.vegandelivery.db.model.Dish;
 
 import java.util.List;
@@ -18,8 +19,8 @@ public class DishAdapter extends RecyclerView.Adapter<com.nozimy.vegandelivery.u
     private DishListener listener;
     private List<Dish> dishes;
 
-    DishAdapter(List<Dish> list) {
-        this.dishes = list;
+    DishAdapter() {
+
     }
 
     public interface DishListener {
@@ -95,5 +96,10 @@ public class DishAdapter extends RecyclerView.Adapter<com.nozimy.vegandelivery.u
                 }
             });
         }
+    }
+
+    public void setDishList(List<Dish> dishList) {
+        dishes = dishList;
+        notifyDataSetChanged();
     }
 }

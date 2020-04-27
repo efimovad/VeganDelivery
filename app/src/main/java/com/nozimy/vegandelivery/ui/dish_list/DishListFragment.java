@@ -10,12 +10,15 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nozimy.vegandelivery.R;
 import com.nozimy.vegandelivery.db.entity.DishEntity;
 import com.nozimy.vegandelivery.db.model.Dish;
+import com.nozimy.vegandelivery.ui.basket.BasketViewModel;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,6 +29,8 @@ public class DishListFragment extends Fragment implements DishAdapter.DishListen
     private RecyclerView list;
     private DishAdapter adapter;
     private List<Dish> mDishList;
+
+    private DishListViewModel mDishListViewModel;
 
     public DishListFragment(List<Dish> dishList) {
         mDishList = dishList;
@@ -71,9 +76,20 @@ public class DishListFragment extends Fragment implements DishAdapter.DishListen
 //                "https://sun9-59.userapi.com/impg/c205724/v205724939/859d0/eoEeTucq2U8.jpg?size=520x0&quality=90&sign=120c52b7584770474612118201cfeb58");
 //        final List<Dish> dish_list = Arrays.asList(dish1, dish2, dish3, dish1, dish2, dish3);
 
-        adapter = new DishAdapter(mDishList);
+        adapter = new DishAdapter();
         adapter.setListener(this);
         list.setAdapter(adapter);
+
+        Observer<List<Dish>> observer = new Observer<List<Dish>>() {
+            @Override
+            public void onChanged(List<Dish> dishes) {
+                if (dishes != null) {
+                    adapter.setDishList(dishes);
+                }
+            }
+        };
+        mDishListViewModel = ViewModelProviders.of(this).get(DishListViewModel.class);
+        mDishListViewModel.getDishList().observe(getViewLifecycleOwner(), observer);
 
         Handler handler =  new Handler();
         Runnable myRunnable = new Runnable() {

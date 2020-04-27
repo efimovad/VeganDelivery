@@ -14,6 +14,7 @@ import com.nozimy.vegandelivery.di.app.DaggerAppComponent;
 import com.nozimy.vegandelivery.di.app.DatabaseModule;
 import com.nozimy.vegandelivery.interactors.places.PlacesListInteractor;
 import com.nozimy.vegandelivery.interactors.places.PlacesListInteractorDefault;
+import com.nozimy.vegandelivery.network.ApiRepo;
 
 
 public class App extends Application {
@@ -22,15 +23,17 @@ public class App extends Application {
     private AppDatabase mDatabase;
     private DataRepository mDataRepository;
     private PlacesListInteractor mPlacesListInteractor;
+    private ApiRepo mApiRepo;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        initDependencies();
+//        initDependencies();
 
 //        mDatabase = AppDatabase.getDatabase(getApplicationContext());
 //        mDataRepository = new DataRepository(mDatabase);
 //        mPlacesListInteractor = new PlacesListInteractorDefault(mDataRepository);
+        mApiRepo = new ApiRepo();
     }
 
     private void initDependencies(){
@@ -55,5 +58,9 @@ public class App extends Application {
 
     public PlacesListInteractor getPlacesInteractor() {
         return mPlacesListInteractor;
+    }
+
+    public ApiRepo getApis() {
+        return mApiRepo;
     }
 }
