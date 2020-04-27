@@ -1,11 +1,46 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <style name="AppTheme" parent="@style/Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorLightPink</item>
+        <item name="colorPrimaryDark">@color/colorGrey</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="TitleText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorGrey</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">30dp</item>
+    </style>
+
+    <style name="SubTitleText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorLightGrey</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14dp</item>
+    </style>
+
+    <style name="PinkText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorLightPink</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14dp</item>
+    </style>
+
+    <style name="DishText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorGrey</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">25dp</item>
+    </style>
+
+    <style name="personal_item_title">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:background">@android:color/white</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Large</item>
+        <item name="android:textColor">@color/colorGrey</item>
+    </style>
+
+    <style name="Button.White" parent="TextAppearance.AppCompat.Button">
+        <item name="colorAccent">@android:color/white</item>
     </style>
 
 </resources>
