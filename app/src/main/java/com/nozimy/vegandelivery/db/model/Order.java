@@ -5,6 +5,8 @@ import android.content.ClipData;
 public interface Order {
     void increment(Dish dish);
     void decrement(Dish dish);
+    int getCount(Dish dish);
+
     void clear();
     int size();
     boolean isEmpty();

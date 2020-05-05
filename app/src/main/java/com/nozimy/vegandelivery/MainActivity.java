@@ -15,6 +15,7 @@ import com.nozimy.vegandelivery.db.model.Dish;
 import com.nozimy.vegandelivery.db.model.Order;
 import com.nozimy.vegandelivery.db.model.Place;
 import com.nozimy.vegandelivery.ui.basket.BasketFragment;
+import com.nozimy.vegandelivery.ui.dish_list.DishDialogFragment;
 import com.nozimy.vegandelivery.ui.dish_list.DishListFragment;
 import com.nozimy.vegandelivery.ui.personal.PersonalFragment;
 import com.nozimy.vegandelivery.ui.place_list.PlaceListFragment;
@@ -22,15 +23,20 @@ import com.nozimy.vegandelivery.ui.place_list.PlaceListFragment;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity
-        implements DishListFragment.ListFragmentListener, PlaceListFragment.ListFragmentListener {
+        implements DishListFragment.ListFragmentListener,
+        PlaceListFragment.ListFragmentListener,
+        DishDialogFragment.DishDialogListener {
 
     Order mCurrentOrder = new OrderEntity();
+    Boolean isLargeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,38 +52,39 @@ public class MainActivity extends AppCompatActivity
                 .beginTransaction()
                 .replace(R.id.fragment_container, placeList)
                 .commit();
+
+        isLargeLayout = getResources().getBoolean(R.bool.large_layout);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment selected =  null;
+            = item -> {
+                Fragment selected =  null;
 
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    selected = new PlaceListFragment();
-                    break;
-                case R.id.navigation_basket:
-                    selected = new BasketFragment();
-                    break;
-                case R.id.navigation_account:
-                    selected = new PersonalFragment();
-                    break;
-            }
+                switch (item.getItemId()) {
+                    case R.id.navigation_home:
+                        selected = new PlaceListFragment();
+                        break;
+                    case R.id.navigation_basket:
+                        selected = new BasketFragment();
+                        break;
+                    case R.id.navigation_account:
+                        selected = new PersonalFragment();
+                        break;
+                }
 
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, selected)
-                    .commit();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, selected)
+                        .commit();
 
-            return true;
-        }
-    };
+                return true;
+            };
 
     @Override
     public void onDetailsItem(Dish dish) {
-        mCurrentOrder.increment(dish);
+        DishDialogFragment dishDialogFragment = new DishDialogFragment(dish, mCurrentOrder.getCount(dish));
+        dishDialogFragment.show(getSupportFragmentManager(), "dish bottom sheet");
+        dishDialogFragment.setListener(this);
     }
 
     @Override
@@ -98,6 +105,17 @@ public class MainActivity extends AppCompatActivity
     public Order getCurrentOrder() {
         return mCurrentOrder;
     }
+
+    @Override
+    public void increment(Dish dish) {
+        mCurrentOrder.increment(dish);
+    }
+
+    @Override
+    public void decrement(Dish dish) {
+        mCurrentOrder.decrement(dish);
+    }
+
 }
 
 class LoadImage extends AsyncTask<String, Void, Bitmap> {

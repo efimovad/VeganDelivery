@@ -13,28 +13,21 @@ import com.nozimy.vegandelivery.db.model.Dish;
 import com.nozimy.vegandelivery.db.model.Order;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyHolder> {
-    private OrderListener listener;
     private Order mOrder;
 
     OrderAdapter(Order order) {
         mOrder = order;
     }
 
-    public interface OrderListener {}
-
-    public void setListener(OrderListener listener) {
-        this.listener = listener;
-    }
-
-    public void updateWith(Dish dish) {
-        mOrder.clear();
-        mOrder.increment(dish);
-        notifyItemInserted(mOrder.size()-1);
-    }
-
-    public void addItem(Dish dish) {
-        updateWith(dish);
-    }
+//    public void updateWith(Dish dish) {
+//        mOrder.clear();
+//        mOrder.increment(dish);
+//        notifyItemInserted(mOrder.size()-1);
+//    }
+//
+//    public void addItem(Dish dish) {
+//        updateWith(dish);
+//    }
 
     @NonNull
     @Override
@@ -72,9 +65,4 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyHolder> {
             count = itemView.findViewById(R.id.item_count);
         }
     }
-
-//    public void setDishList(Order ) {
-//        order = order;
-//        notifyDataSetChanged();
-//    }
 }

@@ -26,27 +26,33 @@ public class BasketFragment extends Fragment {
 
     private BasketViewModel basketViewModel;
     private RecyclerView list;
-
+    private View root;
+    private OrderAdapter adapter;
     private View.OnClickListener mClearListener = v -> {
         MainActivity activity = (MainActivity) getActivity();
         Order currOrder = activity.getCurrentOrder();
         currOrder.clear();
+
+        TextView empty = root.findViewById(R.id.empty_text);
+        empty.setVisibility(View.VISIBLE);
+
+        Button submitButton = root.findViewById(R.id.submit_order_button);
+        submitButton.setVisibility(View.INVISIBLE);
+
+        adapter.notifyDataSetChanged();
     };
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         basketViewModel =
                 ViewModelProviders.of(this).get(BasketViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_basket, container, false);
+
+        root = inflater.inflate(R.layout.fragment_basket, container, false);
 
         MainActivity activity = (MainActivity) getActivity();
         Order currOrder = activity.getCurrentOrder();
 
         if (!currOrder.isEmpty()) {
-//            TextView textView = root.findViewById(R.id.current_order);
-//            textView.setText(currOrder.toString());
-//            textView.setVisibility(View.VISIBLE);
-
             TextView empty = root.findViewById(R.id.empty_text);
             empty.setVisibility(View.INVISIBLE);
 
@@ -57,11 +63,10 @@ public class BasketFragment extends Fragment {
             list.setLayoutManager(
                     new LinearLayoutManager(this.getContext())
             );
-            OrderAdapter adapter = new OrderAdapter(((MainActivity) getActivity()).getCurrentOrder());
-            //adapter.setListener(this);
-            list.setAdapter(adapter);
-            //new Handler().postDelayed(() -> adapter.updateWith(), 2000);
 
+            //adapter.setListener(this);
+            adapter = new OrderAdapter(((MainActivity) getActivity()).getCurrentOrder());
+            list.setAdapter(adapter);
         }
 
         Button clearButton = root.findViewById(R.id.clear_basket_button);
