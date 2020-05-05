@@ -13,5 +13,16 @@
     <string name="cafe_grade">4.8</string>
     <string name="cafe_delivery_time">45 мин</string>
 
-    <string name="logout">Выйти</string>
+    <string name="personal_title">Личный кабинет</string>
+    <string name="personal_logout">Выйти</string>
+    <string name="personal_profile">мой профиль</string>
+    <string name="personal_favorite">любимые кафе</string>
+    <string name="personal_orders">мои заказы</string>
+    <string name="personal_sales">акции</string>
+
+    <string name="basket_title">Корзина</string>
+    <string name="basket_empty">Ваша корзина пуста</string>
+    <string name="basket_clear">Очистить</string>
+
+    <string name="favourite_title">Избранное</string>
 </resources>

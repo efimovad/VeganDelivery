@@ -1,14 +1,18 @@
 package com.nozimy.vegandelivery;
 
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.nozimy.vegandelivery.db.entity.OrderEntity;
 import com.nozimy.vegandelivery.db.model.Dish;
+import com.nozimy.vegandelivery.db.model.Order;
 import com.nozimy.vegandelivery.db.model.Place;
 import com.nozimy.vegandelivery.ui.basket.BasketFragment;
 import com.nozimy.vegandelivery.ui.dish_list.DishListFragment;
@@ -25,6 +29,8 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity
         implements DishListFragment.ListFragmentListener, PlaceListFragment.ListFragmentListener {
+
+    Order mCurrentOrder = new OrderEntity();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +77,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onDetailsItem(Dish dish) {
-
+        mCurrentOrder.increment(dish);
     }
 
     @Override
@@ -87,6 +93,10 @@ public class MainActivity extends AppCompatActivity
                 .beginTransaction()
                 .replace(R.id.fragment_container, dishList)
                 .commit();
+    }
+
+    public Order getCurrentOrder() {
+        return mCurrentOrder;
     }
 }
 

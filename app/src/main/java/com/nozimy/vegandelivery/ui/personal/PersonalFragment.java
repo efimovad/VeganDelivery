@@ -41,17 +41,17 @@ public class PersonalFragment extends Fragment {
                 ViewModelProviders.of(this).get(PersonalViewModel.class);
         View root = inflater.inflate(R.layout.fragment_personal, container, false);
 
-        recyclerView = root.findViewById(R.id.personal_list);
-        adapter = new PersonalAdapter(getContext());
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        personalViewModel.getSettingItems().observe(getViewLifecycleOwner(), new Observer<List<String>>() {
-            @Override
-            public void onChanged(List<String> strings) {
-                adapter.setWords(strings);
-            }
-        });
+//        recyclerView = root.findViewById(R.id.personal_list);
+//        adapter = new PersonalAdapter(getContext());
+//        recyclerView.setAdapter(adapter);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//
+//        personalViewModel.getSettingItems().observe(getViewLifecycleOwner(), new Observer<List<String>>() {
+//            @Override
+//            public void onChanged(List<String> strings) {
+//                adapter.setWords(strings);
+//            }
+//        });
 
         return root;
     }

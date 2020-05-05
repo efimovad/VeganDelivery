@@ -5,10 +5,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.nozimy.vegandelivery.MainActivity;
 import com.nozimy.vegandelivery.R;
 import com.nozimy.vegandelivery.db.model.Dish;
 
@@ -87,14 +89,12 @@ public class DishAdapter extends RecyclerView.Adapter<com.nozimy.vegandelivery.u
             image = itemView.findViewById(R.id.dish_avatar);
         }
 
-        // TODO: check why need final
-        void bindClickListener(final int pos) {
-            itemView.findViewById(R.id.dish_card).setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    listener.onItemClick(dishes.get(pos));
-                }
+        void bindClickListener(int position) {
+            itemView.findViewById(R.id.dish_card).setOnClickListener(v -> {
+                listener.onItemClick(dishes.get(position));
             });
         }
+
     }
 
     public void setDishList(List<Dish> dishList) {

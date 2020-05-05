@@ -21,6 +21,7 @@ import java.net.URL;
 public class DishEntity implements Dish {
     @PrimaryKey
     @NonNull
+    @ColumnInfo(name = "id")
     private int id;
 
     @ColumnInfo(name = "name")
@@ -40,6 +41,11 @@ public class DishEntity implements Dish {
 
     @ColumnInfo(name = "image")
     private String image;
+
+    @Override
+    public int getId() {
+        return this.id;
+    }
 
     @Override
     public String getName() {
@@ -85,11 +91,6 @@ public class DishEntity implements Dish {
         this.calories = calories;
         this.ingredients = ingredients;
         this.image = image;
-    }
-
-    @NonNull
-    public int getId() {
-        return id;
     }
 
     public void setId(@NonNull int id) {
