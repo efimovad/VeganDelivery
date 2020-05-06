@@ -1,30 +1,31 @@
 package com.nozimy.vegandelivery;
 
-import android.content.pm.ActivityInfo;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.widget.ImageView;
-import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.nozimy.vegandelivery.db.entity.OrderEntity;
 import com.nozimy.vegandelivery.db.model.Dish;
 import com.nozimy.vegandelivery.db.model.Order;
 import com.nozimy.vegandelivery.db.model.Place;
+import com.nozimy.vegandelivery.ui.order.OrderFragment;
 import com.nozimy.vegandelivery.ui.basket.BasketFragment;
 import com.nozimy.vegandelivery.ui.dish_list.DishDialogFragment;
 import com.nozimy.vegandelivery.ui.dish_list.DishListFragment;
 import com.nozimy.vegandelivery.ui.personal.PersonalFragment;
 import com.nozimy.vegandelivery.ui.place_list.PlaceListFragment;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,10 +34,14 @@ import java.net.URL;
 public class MainActivity extends AppCompatActivity
         implements DishListFragment.ListFragmentListener,
         PlaceListFragment.ListFragmentListener,
-        DishDialogFragment.DishDialogListener {
+        DishDialogFragment.DishDialogListener,
+        BasketFragment.BasketFragmentListener,
+        OnMapReadyCallback {
 
-    Order mCurrentOrder = new OrderEntity();
-    Boolean isLargeLayout;
+    private Order mCurrentOrder = new OrderEntity();
+    private Boolean isLargeLayout;
+    private GoogleMap mMap;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +60,6 @@ public class MainActivity extends AppCompatActivity
 
         isLargeLayout = getResources().getBoolean(R.bool.large_layout);
     }
-
     private BottomNavigationView.OnNavigationItemSelectedListener navListener
             = item -> {
                 Fragment selected =  null;
@@ -66,6 +70,7 @@ public class MainActivity extends AppCompatActivity
                         break;
                     case R.id.navigation_basket:
                         selected = new BasketFragment();
+                        ((BasketFragment) selected).setListener(this);
                         break;
                     case R.id.navigation_account:
                         selected = new PersonalFragment();
@@ -79,6 +84,7 @@ public class MainActivity extends AppCompatActivity
 
                 return true;
             };
+
 
     @Override
     public void onDetailsItem(Dish dish) {
@@ -107,15 +113,35 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void increment(Dish dish) {
-        mCurrentOrder.increment(dish);
+    public int increment(Dish dish) {
+        return mCurrentOrder.increment(dish);
     }
 
     @Override
-    public void decrement(Dish dish) {
-        mCurrentOrder.decrement(dish);
+    public int decrement(Dish dish) {
+        return mCurrentOrder.decrement(dish);
     }
 
+    @Override
+    public void onSubmitOrder() {
+        Fragment order = new OrderFragment();
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, order)
+                .commit();
+    }
+
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        // Add a marker in Sydney and move the camera
+        LatLng sydney = new LatLng(-34, 151);
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
 }
 
 class LoadImage extends AsyncTask<String, Void, Bitmap> {

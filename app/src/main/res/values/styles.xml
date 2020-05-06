@@ -19,6 +19,11 @@
         <item name="android:textSize">14dp</item>
     </style>
 
+    <style name="MediumText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorGrey</item>
+        <item name="android:textSize">20dp</item>
+    </style>
+
     <style name="PinkText" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/colorLightPink</item>
 <!--        <item name="android:textStyle">bold</item>-->
@@ -59,4 +64,5 @@
         <item name="cornerSizeBottomRight">0dp</item>
         <item name="cornerSizeBottomLeft">0dp</item>
     </style>
+
 </resources>

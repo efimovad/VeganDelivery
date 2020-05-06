@@ -26,8 +26,8 @@ public class DishDialogFragment extends BottomSheetDialogFragment {
     }
 
     public interface DishDialogListener {
-        void increment(Dish dish);
-        void decrement(Dish dish);
+        int increment(Dish dish);
+        int decrement(Dish dish);
     };
 
     @Nullable
@@ -36,22 +36,24 @@ public class DishDialogFragment extends BottomSheetDialogFragment {
         mRoot = inflater.inflate(R.layout.dish_details, container, false);
 
         ImageButton incButton = mRoot.findViewById(R.id.increment);
-        View.OnClickListener incListener = v -> {
-            listener.increment(mDish);
-            mCount++;
-            setCount(mCount);
-        };
+        View.OnClickListener incListener = v -> { setCount(listener.increment(mDish)); };
         incButton.setOnClickListener(incListener);
 
         ImageButton decButton = mRoot.findViewById(R.id.decrement);
-        View.OnClickListener decListener = v -> {
-            listener.decrement(mDish);
-            if (mCount > 0) {
-                mCount--;
-            }
-            setCount(mCount);
-        };
+        View.OnClickListener decListener = v -> { setCount(listener.decrement(mDish)); };
         decButton.setOnClickListener(decListener);
+
+        TextView name = mRoot.findViewById(R.id.dish_name);
+        name.setText(mDish.getName());
+
+        TextView ingredients = mRoot.findViewById(R.id.dish_ingredients);
+        ingredients.setText(mDish.getIngredients());
+
+        TextView params = mRoot.findViewById(R.id.dish_params);
+        params.setText(mDish.getWeightString() + " " + mDish.getСalories());
+
+        TextView price = mRoot.findViewById(R.id.dish_price);
+        price.setText(mDish.getCostString());
 
         setCount(mCount);
 

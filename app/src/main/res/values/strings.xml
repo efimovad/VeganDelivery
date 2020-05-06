@@ -24,5 +24,14 @@
     <string name="basket_empty">Ваша корзина пуста</string>
     <string name="basket_clear">Очистить</string>
 
+    <string name="order_flat">кв./офис</string>
+    <string name="order_floor">этаж</string>
+    <string name="order_porch">подъезд</string>
+    <string name="order_intercom">домофон</string>
+    <string name="order_comment">Комментарий</string>
+    <string name="order_pay_button">Оплатить</string>
+    <string name="order_total_price">Итого</string>
+    <string name="order_delivery_price">Доставка</string>
+
     <string name="favourite_title">Избранное</string>
 </resources>

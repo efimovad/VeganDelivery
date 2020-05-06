@@ -17,6 +17,35 @@
                 android:scaleType="centerCrop"
                 android:src="@mipmap/cafe_default"/>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/dish_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Название блюда"
+                    style="@style/TitleText"
+                    android:layout_marginLeft="10dp"
+                    />
+                <TextView
+                    android:id="@+id/dish_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center"
+                    android:text="100 руб">
+                </TextView>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/dish_params"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="340 г 250 ккал"
+                android:layout_marginLeft="10dp"/>
+
             <TextView
                 android:id="@+id/dish_ingredients"
                 android:layout_width="match_parent"
@@ -27,7 +56,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginBottom="10dp">
 
                 <ImageButton
                     android:id="@+id/decrement"

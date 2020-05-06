@@ -3,8 +3,8 @@ package com.nozimy.vegandelivery.db.model;
 import android.content.ClipData;
 
 public interface Order {
-    void increment(Dish dish);
-    void decrement(Dish dish);
+    int increment(Dish dish);
+    int decrement(Dish dish);
     int getCount(Dish dish);
 
     void clear();

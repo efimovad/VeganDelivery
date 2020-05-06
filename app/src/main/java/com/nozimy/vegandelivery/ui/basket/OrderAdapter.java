@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nozimy.vegandelivery.R;
-import com.nozimy.vegandelivery.db.model.Dish;
 import com.nozimy.vegandelivery.db.model.Order;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyHolder> {
@@ -18,16 +17,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyHolder> {
     OrderAdapter(Order order) {
         mOrder = order;
     }
-
-//    public void updateWith(Dish dish) {
-//        mOrder.clear();
-//        mOrder.increment(dish);
-//        notifyItemInserted(mOrder.size()-1);
-//    }
-//
-//    public void addItem(Dish dish) {
-//        updateWith(dish);
-//    }
 
     @NonNull
     @Override

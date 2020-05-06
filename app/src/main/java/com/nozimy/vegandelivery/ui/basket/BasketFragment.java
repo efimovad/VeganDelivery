@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,14 +21,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.nozimy.vegandelivery.MainActivity;
 import com.nozimy.vegandelivery.R;
+import com.nozimy.vegandelivery.db.model.Dish;
 import com.nozimy.vegandelivery.db.model.Order;
 
 public class BasketFragment extends Fragment {
-
+    private BasketFragmentListener listener;
     private BasketViewModel basketViewModel;
     private RecyclerView list;
     private View root;
     private OrderAdapter adapter;
+
+
+    public interface BasketFragmentListener {
+        void onSubmitOrder();
+    };
+
+    public void setListener(BasketFragmentListener listener) {
+        this.listener = listener;
+    }
+
     private View.OnClickListener mClearListener = v -> {
         MainActivity activity = (MainActivity) getActivity();
         Order currOrder = activity.getCurrentOrder();
@@ -72,6 +84,12 @@ public class BasketFragment extends Fragment {
         Button clearButton = root.findViewById(R.id.clear_basket_button);
         clearButton.setOnClickListener(mClearListener);
 
+        Button submitButton = root.findViewById(R.id.submit_order_button);
+        View.OnClickListener submitListener = v -> listener.onSubmitOrder();
+        submitButton.setOnClickListener(submitListener);
+
         return root;
     }
+
+
 }
