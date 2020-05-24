@@ -11,29 +11,29 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nozimy.vegandelivery.R;
-import com.nozimy.vegandelivery.db.model.Place;
+import com.nozimy.vegandelivery.db.model.MyPlace;
 
 public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyHolder> {
     private AdapterListener listener;
-    private List<Place> mPlaces;
+    private List<MyPlace> mMyPlaces;
 
-    public void setPlaceList(List<Place> places) {
-        mPlaces = places;
+    public void setPlaceList(List<MyPlace> myPlaces) {
+        mMyPlaces = myPlaces;
         notifyDataSetChanged();
     }
 
     public interface AdapterListener {
-        void onItemClick(Place place);
+        void onItemClick(MyPlace myPlace);
     }
 
     public void setListener(AdapterListener listener) {
         this.listener = listener;
     }
 
-    public void updateWith(List<Place> newPlaces) {
-        mPlaces.clear();
-        mPlaces.addAll(newPlaces);
-        notifyItemInserted(mPlaces.size()-1);
+    public void updateWith(List<MyPlace> newMyPlaces) {
+        mMyPlaces.clear();
+        mMyPlaces.addAll(newMyPlaces);
+        notifyItemInserted(mMyPlaces.size()-1);
     }
 
     //public void addItem() {
@@ -54,18 +54,18 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
-        Place place = mPlaces.get(position);
+        MyPlace myPlace = mMyPlaces.get(position);
 
-        holder.name.setText(place.getName());
-        holder.deliveryTime.setText(place.getDeliveryTimeString());
-        holder.grade.setText(place.getGradeString());
-        holder.minOrderCost.setText(place.getMinOrderCostString());
+        holder.name.setText(myPlace.getName());
+        holder.deliveryTime.setText(myPlace.getDeliveryTimeString());
+        holder.grade.setText(myPlace.getGradeString());
+        holder.minOrderCost.setText(myPlace.getMinOrderCostString());
         holder.bindClickListener(position);
     }
 
     @Override
     public int getItemCount() {
-        return mPlaces.size();
+        return mMyPlaces.size();
     }
 
     class MyHolder extends RecyclerView.ViewHolder {
@@ -87,7 +87,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyHolder> {
         void bindClickListener(final int pos) {
             itemView.findViewById(R.id.place_card).setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    listener.onItemClick(mPlaces.get(pos));
+                    listener.onItemClick(mMyPlaces.get(pos));
                 }
             });
         }

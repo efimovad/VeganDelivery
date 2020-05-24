@@ -9,29 +9,27 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.nozimy.vegandelivery.R;
 
-import java.util.List;
 
 public class PersonalFragment extends Fragment {
     private PersonalFragmentListener listener;
-
     private PersonalViewModel personalViewModel;
     private RecyclerView recyclerView;
-    private PersonalAdapter adapter;
 
-    public interface PersonalFragmentListener { }
+    public interface PersonalFragmentListener {
+        void clickOnFavoriteButton();
+        void clickOnPersonalButton();
+        void clickOnOrdersButton();
+        void clickOnSalesButton();
+    }
 
     public void setListener(PersonalFragmentListener listener) {
         this.listener = listener;
     }
 
-    public PersonalFragment(Context context) {}
     public PersonalFragment() {}
 
     @Nullable
@@ -40,18 +38,6 @@ public class PersonalFragment extends Fragment {
         personalViewModel =
                 ViewModelProviders.of(this).get(PersonalViewModel.class);
         View root = inflater.inflate(R.layout.fragment_personal, container, false);
-
-//        recyclerView = root.findViewById(R.id.personal_list);
-//        adapter = new PersonalAdapter(getContext());
-//        recyclerView.setAdapter(adapter);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//
-//        personalViewModel.getSettingItems().observe(getViewLifecycleOwner(), new Observer<List<String>>() {
-//            @Override
-//            public void onChanged(List<String> strings) {
-//                adapter.setWords(strings);
-//            }
-//        });
 
         return root;
     }

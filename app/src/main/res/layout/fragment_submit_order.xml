@@ -25,7 +25,7 @@
             android:layout_weight=".50"
             android:layout_margin="2dp"
             android:hint="@string/order_flat"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            style="@style/SaveOrderFormAddress">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
             android:hint="@string/order_porch"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            style="@style/SaveOrderFormAddress">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -53,8 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
             android:hint="@string/order_floor"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
+            style="@style/SaveOrderFormAddress">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -69,7 +68,7 @@
         android:layout_marginRight="20dp"
         android:hint="@string/order_comment"
         android:gravity="center"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        style="@style/SaveOrderFormAddress">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -86,15 +85,18 @@
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:layout_weight=".5"
+            android:layout_marginLeft="20dp"
             android:text="@string/order_delivery_price"
-            style="@style/MediumText"
+            android:textColor="@color/colorGrey"
+            style="@style/TextAppearance.MaterialComponents.Body1"
             />
         <TextView
             android:layout_width="0dp"
             android:layout_weight=".2"
             android:layout_height="wrap_content"
             android:text="200 р"
-            style="@style/MediumText"
+            android:textColor="@color/colorGrey"
+            style="@style/TextAppearance.MaterialComponents.Body1"
             />
     </LinearLayout>
 
@@ -107,15 +109,18 @@
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:layout_weight=".5"
+            android:layout_marginLeft="20dp"
             android:text="@string/order_total_price"
-            style="@style/MediumText"
+            android:textColor="@color/colorGrey"
+            style="@style/TextAppearance.MaterialComponents.Body1"
             />
         <TextView
             android:layout_width="0dp"
             android:layout_weight=".2"
             android:layout_height="wrap_content"
             android:text="1200 р"
-            style="@style/MediumText"
+            android:textColor="@color/colorGrey"
+            style="@style/TextAppearance.MaterialComponents.Body1"
             />
     </LinearLayout>
 

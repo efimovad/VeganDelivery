@@ -1,22 +1,26 @@
 package com.nozimy.vegandelivery;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.nozimy.vegandelivery.db.entity.OrderEntity;
 import com.nozimy.vegandelivery.db.model.Dish;
 import com.nozimy.vegandelivery.db.model.Order;
-import com.nozimy.vegandelivery.db.model.Place;
+import com.nozimy.vegandelivery.db.model.MyPlace;
 import com.nozimy.vegandelivery.ui.order.OrderFragment;
 import com.nozimy.vegandelivery.ui.basket.BasketFragment;
 import com.nozimy.vegandelivery.ui.dish_list.DishDialogFragment;
@@ -24,12 +28,14 @@ import com.nozimy.vegandelivery.ui.dish_list.DishListFragment;
 import com.nozimy.vegandelivery.ui.personal.PersonalFragment;
 import com.nozimy.vegandelivery.ui.place_list.PlaceListFragment;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity
         implements DishListFragment.ListFragmentListener,
@@ -50,7 +56,6 @@ public class MainActivity extends AppCompatActivity
 
         BottomNavigationView bottomNav = findViewById(R.id.navigation_view);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
-
 
         PlaceListFragment placeList = new PlaceListFragment();
         getSupportFragmentManager()
@@ -100,7 +105,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onDetailsItem(Place place) {
+    public void onDetailsItem(MyPlace myPlace) {
         DishListFragment dishList = new DishListFragment();
         getSupportFragmentManager()
                 .beginTransaction()

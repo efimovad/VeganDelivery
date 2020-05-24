@@ -6,10 +6,10 @@ import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import com.nozimy.vegandelivery.db.model.Place;
+import com.nozimy.vegandelivery.db.model.MyPlace;
 
 @Entity(tableName = "places", indices = {@Index("name")})
-public class PlaceEntity implements Place {
+public class PlaceEntity implements MyPlace {
     @PrimaryKey
     @NonNull
     private int id;

@@ -1,6 +1,6 @@
 package com.nozimy.vegandelivery.db.model;
 
-public interface Place {
+public interface MyPlace {
     String getName();
     String getDeliveryTimeString();
     String getMinOrderCostString();
