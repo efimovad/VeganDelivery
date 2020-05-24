@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     android:background="@color/colorLightPink">
 
+    <TextView
+        style="@style/TitleText"
+        android:id="@+id/personal_title"
+        android:text="@string/personal_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+
+        />
+
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
         android:layout_width="wrap_content"

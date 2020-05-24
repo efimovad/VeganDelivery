@@ -21,6 +21,7 @@ import com.nozimy.vegandelivery.db.entity.OrderEntity;
 import com.nozimy.vegandelivery.db.model.Dish;
 import com.nozimy.vegandelivery.db.model.Order;
 import com.nozimy.vegandelivery.db.model.MyPlace;
+import com.nozimy.vegandelivery.ui.auth.AuthFragment;
 import com.nozimy.vegandelivery.ui.order.OrderFragment;
 import com.nozimy.vegandelivery.ui.basket.BasketFragment;
 import com.nozimy.vegandelivery.ui.dish_list.DishDialogFragment;
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity
                         ((BasketFragment) selected).setListener(this);
                         break;
                     case R.id.navigation_account:
-                        selected = new PersonalFragment();
+                        selected = new AuthFragment();
                         break;
                 }
 

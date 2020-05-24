@@ -19,8 +19,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
-import com.nozimy.vegandelivery.MainActivity;
 import com.nozimy.vegandelivery.R;
+import com.nozimy.vegandelivery.ui.personal.PersonalFragment;
 
 import static android.content.ContentValues.TAG;
 
@@ -35,10 +35,14 @@ public class AuthFragment extends Fragment {
 
     public void  updateUI(GoogleSignInAccount account){
         if(account != null){
-            Toast.makeText(getActivity(),"U Signed In successfully",Toast.LENGTH_LONG).show();
-            startActivity(new Intent(getActivity(), MainActivity.class));
-        }else {
-            Toast.makeText(getActivity(),"U Didnt signed in",Toast.LENGTH_LONG).show();
+//            Toast.makeText(getActivity(),"Привет, " + account.getDisplayName(),Toast.LENGTH_LONG).show();
+
+            getFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, new PersonalFragment())
+                    .commit();
+        } else {
+//            Toast.makeText(getActivity(),"Вы не авторизованы", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -60,7 +64,7 @@ public class AuthFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.activity_auth, container, false);
+        View root = inflater.inflate(R.layout.fragment_auth, container, false);
 
         SignInButton button = root.findViewById(R.id.sign_in_button);
         button.setSize(SignInButton.SIZE_STANDARD);
