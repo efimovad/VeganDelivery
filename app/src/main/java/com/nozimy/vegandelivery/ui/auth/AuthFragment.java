@@ -6,11 +6,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -27,6 +27,8 @@ import static android.content.ContentValues.TAG;
 public class AuthFragment extends Fragment {
     private GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 0 ;
+
+    private AuthViewModel mAuthViewModel;
 
     private void signIn() {
         Intent intent = mGoogleSignInClient.getSignInIntent();
@@ -50,6 +52,8 @@ public class AuthFragment extends Fragment {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
+            mAuthViewModel.insertPerson(account);
+
             // Signed in successfully, show authenticated UI.
             updateUI(account);
         } catch (ApiException e) {
@@ -64,6 +68,9 @@ public class AuthFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        mAuthViewModel =
+                ViewModelProviders.of(this).get(AuthViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_auth, container, false);
 
         SignInButton button = root.findViewById(R.id.sign_in_button);

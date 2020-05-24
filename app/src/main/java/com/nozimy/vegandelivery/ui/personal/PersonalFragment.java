@@ -19,7 +19,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.nozimy.vegandelivery.R;
+import com.nozimy.vegandelivery.ui.PersonEdit.PersonEditFragment;
 import com.nozimy.vegandelivery.ui.auth.AuthFragment;
+import com.nozimy.vegandelivery.ui.basket.BasketFragment;
+import com.nozimy.vegandelivery.ui.order.OrderFragment;
 
 
 public class PersonalFragment extends Fragment {
@@ -28,6 +31,8 @@ public class PersonalFragment extends Fragment {
     private RecyclerView recyclerView;
 
     private GoogleSignInClient mGoogleSignInClient;
+
+    private String changePersonTag = "changePersonTag";
 
     public interface PersonalFragmentListener {
         void clickOnFavoriteButton();
@@ -54,6 +59,21 @@ public class PersonalFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 signOut();
+            }
+        });
+
+        Button changePersonButton = root.findViewById(R.id.item);
+        Button ordersButton = root.findViewById(R.id.orders);
+        Button favoritePlacesButton = root.findViewById(R.id.favorite_places);
+
+        changePersonButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, new PersonEditFragment(), changePersonTag)
+                        .addToBackStack(changePersonTag)
+                        .commit();
             }
         });
 

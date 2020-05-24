@@ -34,4 +34,10 @@
     <string name="order_delivery_price">Доставка</string>
 
     <string name="favourite_title">Избранное</string>
+
+    <string name="button_save">Сохранить</string>
+    <string name="edit_input_name">Фамилия Имя</string>
+    <string name="edit_input_phone">Номер телефона</string>
+    <string name="edit_input_email">Эл. почта</string>
+    <string name="edit_person_title">Мои данные</string>
 </resources>
