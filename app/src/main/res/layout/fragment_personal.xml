@@ -10,25 +10,60 @@
     <TextView
         style="@style/TitleText"
         android:id="@+id/personal_title"
-        android:text="Личный кабинет"
+        android:text="@string/personal_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/personal_list" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/personal_list"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_below="@+id/personal_title"
-        tools:listitem="@layout/recyclerview_item_personal"/>
+        android:layout_below="@id/personal_title"
+        android:orientation="vertical"
+        android:layout_margin="10dp">
+        <Button
+            android:id="@+id/item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/personal_profile"
+            android:gravity="left|center_vertical"
+            app:icon="@drawable/ic_person_24px"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            />
+        <Button
+            android:id="@+id/favorite_places"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/personal_favorite"
+            android:gravity="left|center_vertical"
+            app:icon="@drawable/ic_favorite_24px"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            />
+        <Button
+            android:id="@+id/orders"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/personal_orders"
+            android:gravity="left|center_vertical"
+            app:icon="@drawable/ic_view_list_24px"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            />
+        <Button
+            android:id="@+id/sales"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:text="@string/personal_sales"
+            app:icon="@drawable/ic_local_cafe_24px"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            />
+    </LinearLayout>
 
     <Button
         android:id="@+id/logout_button"
-        android:text="@string/logout"
+        android:text="@string/personal_logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"

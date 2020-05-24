@@ -4,23 +4,29 @@
         <item name="colorPrimary">@color/colorLightPink</item>
         <item name="colorPrimaryDark">@color/colorGrey</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
     </style>
 
     <style name="TitleText" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/colorGrey</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">30dp</item>
+        <item name="android:textSize">28dp</item>
     </style>
 
     <style name="SubTitleText" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/colorLightGrey</item>
-        <item name="android:textStyle">bold</item>
+<!--        <item name="android:textStyle">bold</item>-->
         <item name="android:textSize">14dp</item>
+    </style>
+
+    <style name="MediumText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/colorGrey</item>
+        <item name="android:textSize">20dp</item>
     </style>
 
     <style name="PinkText" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/colorLightPink</item>
-        <item name="android:textStyle">bold</item>
+<!--        <item name="android:textStyle">bold</item>-->
         <item name="android:textSize">14dp</item>
     </style>
 
@@ -41,6 +47,29 @@
 
     <style name="Button.White" parent="TextAppearance.AppCompat.Button">
         <item name="colorAccent">@android:color/white</item>
+    </style>
+
+    <style name="CustomBottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheet</item>
+    </style>
+
+    <style name="CustomBottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>
+    </style>
+
+    <style name="CustomShapeAppearanceBottomSheetDialog" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="SaveOrderFormAddress" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusBottomEnd">10dp</item>
+        <item name="boxCornerRadiusTopEnd">10dp</item>
+        <item name="boxCornerRadiusBottomStart">10dp</item>
+        <item name="boxCornerRadiusTopStart">10dp</item>
     </style>
 
 </resources>

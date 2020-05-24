@@ -6,9 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-import com.nozimy.vegandelivery.db.model.Place;
 import com.nozimy.vegandelivery.interactors.AccountInteractor;
 
 import java.util.Arrays;

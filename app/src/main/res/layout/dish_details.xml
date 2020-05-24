@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/dish_avatar"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/cafe_default"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/dish_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Название блюда"
+                    style="@style/TitleText"
+                    android:layout_marginLeft="10dp"
+                    />
+                <TextView
+                    android:id="@+id/dish_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center"
+                    android:text="100 руб">
+                </TextView>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/dish_params"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="340 г 250 ккал"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:id="@+id/dish_ingredients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Томатный соус, тофу, водросли нори, красный лук, соевая моцарелла"
+                style="@style/Widget.MaterialComponents.TextView"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginBottom="10dp">
+
+                <ImageButton
+                    android:id="@+id/decrement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_indeterminate_check_box_24px"
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:tint="@color/colorLightPink"/>
+
+                <TextView
+                    android:id="@+id/dish_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="1"
+                    android:gravity="center"
+                    />
+
+                <ImageButton
+                    android:id="@+id/increment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_add_box_24px"
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:tint="@color/colorLightPink"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+</RelativeLayout>

@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.nozimy.vegandelivery.db.entity.PlaceEntity;
-import com.nozimy.vegandelivery.db.model.Place;
+import com.nozimy.vegandelivery.db.model.MyPlace;
 import com.nozimy.vegandelivery.network.ApiRepo;
 import com.nozimy.vegandelivery.network.PlacesApi;
 
@@ -24,10 +24,10 @@ public class PlacesListInteractor {
     private final Context mContext;
     private PlacesApi mPlacesApi;
 
-    private final static MutableLiveData<List<Place>> mPlaces = new MutableLiveData<>();
+    private final static MutableLiveData<List<MyPlace>> mPlaces = new MutableLiveData<>();
 
     static {
-        mPlaces.setValue(Collections.<Place>emptyList());
+        mPlaces.setValue(Collections.<MyPlace>emptyList());
     }
 
 
@@ -37,7 +37,7 @@ public class PlacesListInteractor {
         refresh();
     }
 
-    public LiveData<List<Place>> getPlaces() {
+    public LiveData<List<MyPlace>> getPlaces() {
         return mPlaces;
     }
 
@@ -58,9 +58,9 @@ public class PlacesListInteractor {
         });
     }
 
-    private static List<Place> transform(PlacesApi.PlacesResponse placesResponse) {
+    private static List<MyPlace> transform(PlacesApi.PlacesResponse placesResponse) {
         List<PlacesApi.PlacePlain> plains = placesResponse.places;
-        List<Place> result = new ArrayList<>();
+        List<MyPlace> result = new ArrayList<>();
         for (PlacesApi.PlacePlain placePlain : plains) {
             try {
                 PlaceEntity place = map(placePlain);

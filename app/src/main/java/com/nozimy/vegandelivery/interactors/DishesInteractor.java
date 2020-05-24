@@ -75,6 +75,7 @@ public class DishesInteractor {
 
     private static DishEntity map(DishesApi.DishPlain dishPlain) throws ParseException {
         return new DishEntity(
+                dishPlain.id,
                 dishPlain.name,
                 dishPlain.cost,
                 dishPlain.calories,

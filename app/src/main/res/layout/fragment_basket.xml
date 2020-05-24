@@ -1,15 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.basket.BasketFragment">
+    tools:context=".ui.basket.BasketFragment"
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/text_basket"
+        style="@style/TitleText"
+        android:id="@+id/basket_title"
+        android:text="@string/basket_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <Button
+        android:id="@+id/clear_basket_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/basket_clear"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentRight="true"
+        app:icon="@drawable/ic_delete_24px"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+        />
+
+    <TextView
+        android:id="@+id/empty_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:text="@string/basket_empty"
         android:gravity="center"
-        android:text="Basket fragment"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:visibility="visible"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/item_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/basket_title"
+        android:layout_above="@+id/submit_order_button">
+    </androidx.recyclerview.widget.RecyclerView>
+
+<!--    <TextView-->
+<!--        android:id="@+id/current_order"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:gravity="center"-->
+<!--        android:visibility="invisible"-->
+<!--        />-->
+
+    <Button
+        android:id="@+id/submit_order_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Оформить заказ"
+        android:layout_alignParentBottom="true"
+        android:visibility="invisible"
+        />
+</RelativeLayout>
