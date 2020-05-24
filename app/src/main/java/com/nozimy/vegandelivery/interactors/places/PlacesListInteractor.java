@@ -1,11 +1,17 @@
 package com.nozimy.vegandelivery.interactors.places;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
+import com.nozimy.vegandelivery.db.DataRepository;
 import com.nozimy.vegandelivery.db.entity.PlaceEntity;
 import com.nozimy.vegandelivery.db.model.MyPlace;
 import com.nozimy.vegandelivery.network.ApiRepo;
@@ -23,22 +29,55 @@ import retrofit2.Response;
 public class PlacesListInteractor {
     private final Context mContext;
     private PlacesApi mPlacesApi;
+    private DataRepository mDataRepository;
 
-    private final static MutableLiveData<List<MyPlace>> mPlaces = new MutableLiveData<>();
+    private SharedPreferences mSharedPreferences;
+
+//    private final static MutableLiveData<List<MyPlace>> mPlaces = new MutableLiveData<>();
+    private LiveData<List<PlaceEntity>> mPlaces;
+    private MediatorLiveData<List<PlaceEntity>> mPlaceLive = new MediatorLiveData<>();
+
 
     static {
-        mPlaces.setValue(Collections.<MyPlace>emptyList());
+//        mPlaces.setValue(Collections.<MyPlace>emptyList());
     }
 
 
     public PlacesListInteractor(Context context) {
         mContext = context;
         mPlacesApi = ApiRepo.from(mContext).getPlacesApi();
+        mDataRepository = new DataRepository(context);
+
+        mPlaces = mDataRepository.getPlaces();
+
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+
         refresh();
     }
 
-    public LiveData<List<MyPlace>> getPlaces() {
-        return mPlaces;
+    public LiveData<List<PlaceEntity>> getPlaces() {
+//        return mPlaces;
+
+        final LiveData<List<PlaceEntity>> entities = mDataRepository.getPlaces();
+
+        mPlaceLive.addSource(entities, new Observer<List<PlaceEntity>>() {
+            @Override
+            public void onChanged(@Nullable List<PlaceEntity> placeList) {
+//                if (placeList != null) {
+//                    mPlaceLive.postValue(placeList);
+//                }
+                if(placeList == null || placeList.isEmpty()) {
+//                    mPlaceLive.removeSource(entities);
+//                    mPlaceLive.setValue(Collections.<PlaceEntity>emptyList());
+                    refresh();
+                }else{
+                    mPlaceLive.removeSource(entities);
+                    mPlaceLive.setValue(placeList);
+                }
+            }
+        });
+
+        return mPlaceLive;
     }
 
     public void refresh() {
@@ -47,7 +86,8 @@ public class PlacesListInteractor {
             public void onResponse(Call<PlacesApi.PlacesResponse> call,
                                    Response<PlacesApi.PlacesResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    mPlaces.postValue(transform(response.body()));
+                    importPlacesFromApiToDB(transform(response.body()));
+//                    mPlaces.postValue(transform(response.body()));
                 }
             }
 
@@ -72,6 +112,16 @@ public class PlacesListInteractor {
         return result;
     }
 
+    public static List<MyPlace> transformPlaceEntityToMyPlace(List<PlaceEntity> list) {
+        List<MyPlace> result = new ArrayList<>();
+
+        for (PlaceEntity entity : list) {
+            result.add(entity);
+        }
+
+        return result;
+    }
+
 
     private static PlaceEntity map(PlacesApi.PlacePlain placePlain) throws ParseException {
         return new PlaceEntity(
@@ -81,5 +131,11 @@ public class PlacesListInteractor {
                 placePlain.minCost,
                 placePlain.grade
         );
+    }
+
+    private void importPlacesFromApiToDB(List<MyPlace> places){
+        for (MyPlace place: places) {
+            mDataRepository.insertPlace((PlaceEntity) place);
+        }
     }
 }

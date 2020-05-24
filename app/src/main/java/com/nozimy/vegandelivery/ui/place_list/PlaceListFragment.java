@@ -24,6 +24,7 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.nozimy.vegandelivery.R;
+import com.nozimy.vegandelivery.db.entity.PlaceEntity;
 import com.nozimy.vegandelivery.db.model.MyPlace;
 
 import java.util.Arrays;
@@ -92,12 +93,13 @@ public class PlaceListFragment extends Fragment implements PlaceAdapter.AdapterL
         adapter.setListener(this);
         list.setAdapter(adapter);
 
-        Observer<List<MyPlace>> observer = new Observer<List<MyPlace>>() {
+        Observer<List<PlaceEntity>> observer = new Observer<List<PlaceEntity>>() {
             @Override
-            public void onChanged(List<MyPlace> places) {
+            public void onChanged(List<PlaceEntity> places) {
                 if (places != null) {
-                    adapter.setPlaceList(places);
-                    mMyPlaceList = places;
+                    List<MyPlace> list = mPlaceListViewModel.transformPlaceEntityToMyPlace(places);
+                    adapter.setPlaceList(list);
+                    mMyPlaceList = list;
                 }
             }
         };

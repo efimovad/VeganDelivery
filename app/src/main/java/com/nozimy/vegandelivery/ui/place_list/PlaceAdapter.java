@@ -65,6 +65,9 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyHolder> {
 
     @Override
     public int getItemCount() {
+        if (mMyPlaces == null){
+            return 0;
+        }
         return mMyPlaces.size();
     }
 

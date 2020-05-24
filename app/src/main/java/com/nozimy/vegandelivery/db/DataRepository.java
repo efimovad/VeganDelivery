@@ -39,4 +39,8 @@ public class DataRepository {
     public void updatePerson(String id, String name, String phone, String email){
         this.mDatabase.personDao().update(id, name, phone, email);
     }
+
+    public void insertPlace(PlaceEntity placeEntity){
+        this.mDatabase.placeDao().insert(placeEntity);
+    }
 }
