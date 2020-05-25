@@ -15,7 +15,7 @@ import com.nozimy.vegandelivery.db.model.Order;
 
 import java.util.ArrayList;
 
-public class OrderListFragment extends Fragment {
+public class OrderListFragment extends Fragment implements OrderListAdapter.OrdersListener {
     private RecyclerView list;
     private OrderListAdapter adapter;
     private ArrayList<Order> mOrders;
@@ -28,15 +28,17 @@ public class OrderListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.order, null);
+        View v = inflater.inflate(R.layout.order_list, null);
 
-        list = v.findViewById(R.id.items_list);
+        list = v.findViewById(R.id.order_list);
         list.setLayoutManager(
                 new GridLayoutManager(this.getContext(), 1)
         );
 
         adapter = new OrderListAdapter(mOrders);
+        adapter.setListener(this);
         list.setAdapter(adapter);
+
 
         /*Observer<List<Dish>> observer = dishes -> {
             if (dishes != null) {
@@ -53,5 +55,14 @@ public class OrderListFragment extends Fragment {
         };
 
         return v;
+    }
+
+    @Override
+    public void addItems(Order order) {
+        Fragment itemListFragment = new ItemListFragment(order);
+        getChildFragmentManager()
+            .beginTransaction()
+            .replace(R.id.fragment_container, itemListFragment)
+            .commit();
     }
 }

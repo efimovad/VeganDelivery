@@ -3,24 +3,33 @@ package com.nozimy.vegandelivery.ui.order;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nozimy.vegandelivery.R;
+import com.nozimy.vegandelivery.db.model.Dish;
 import com.nozimy.vegandelivery.db.model.Order;
 
 import java.util.ArrayList;
 
 public class OrderListAdapter extends RecyclerView.Adapter<com.nozimy.vegandelivery.ui.order.OrderListAdapter.MyHolder> {
     private ArrayList<Order> mOrders;
+    private OrdersListener listener;
 
     OrderListAdapter(ArrayList<Order> orders) {
         mOrders = orders;
     }
 
+    public void setListener(OrdersListener listener) {
+        this.listener = listener;
+    }
 
+    public interface OrdersListener {
+        void addItems(Order order);
+    }
 
     public void updateWith(Order order) {
         mOrders.add(order);
@@ -50,6 +59,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<com.nozimy.vegandeliv
 //
 //        holder.price.setText(mOrder.getPrice(position));
         //holder.count.setText(mOrder.getCount(position));
+        listener.addItems(mOrders.get(position));
     }
 
     @Override

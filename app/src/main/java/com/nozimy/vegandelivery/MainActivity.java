@@ -164,6 +164,7 @@ public class MainActivity extends AppCompatActivity
         ArrayList<Order> orders = new ArrayList<>();
         orders.add(order);
         orders.add(order);
+        orders.add(order);
 
         Fragment ordersListFragment = new OrderListFragment(orders);
         getSupportFragmentManager()

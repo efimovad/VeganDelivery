@@ -42,7 +42,7 @@ public class ItemListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.order, null);
+        View v = inflater.inflate(R.layout.order_item_list, null);
 
         list = v.findViewById(R.id.items_list);
         list.setLayoutManager(
