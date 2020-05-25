@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -45,39 +46,13 @@ public class PlaceListFragment extends Fragment implements PlaceAdapter.AdapterL
         listener.onDetailsItem(myPlace);
     }
 
+    @Override
+    public void loadPlaceImage(ImageView view, String url) { listener.loadImage(view, url); }
+
     public interface ListFragmentListener {
         void onDetailsItem(MyPlace myPlace);
+        void loadImage(ImageView view, String url);
     };
-
-//    @Override
-//    public void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        String apiKey = getString(R.string.google_maps_key);
-//        if (!Places.isInitialized()) {
-//            Places.initialize(getActivity().getApplicationContext(), apiKey);
-//        }
-//
-//        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
-//                getFragmentManager().findFragmentById(R.id.autocomplete_fragment);
-//
-//        // Specify the types of place data to return.
-//        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
-//
-//        // Set up a PlaceSelectionListener to handle the response.
-////        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-////            @Override
-////            public void onPlaceSelected(@NonNull com.google.android.libraries.places.api.model.Place place) {
-////                //todo
-////                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
-////            }
-////
-////            @Override
-////            public void onError(Status status) {
-////                // TODO: Handle the error.
-////                Log.i(TAG, "An error occurred: " + status);
-////            }
-////        });
-//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

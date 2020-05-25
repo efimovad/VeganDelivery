@@ -7,8 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -18,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.nozimy.vegandelivery.R;
 import com.nozimy.vegandelivery.db.entity.DishEntity;
 import com.nozimy.vegandelivery.db.model.Dish;
+import com.nozimy.vegandelivery.db.model.MyPlace;
 import com.nozimy.vegandelivery.ui.basket.BasketViewModel;
 
 import java.util.Arrays;
@@ -30,6 +33,11 @@ public class DishListFragment extends Fragment implements DishAdapter.DishListen
     private DishAdapter adapter;
     private List<Dish> mDishList;
     private DishListViewModel mDishListViewModel;
+    private MyPlace myPlace;
+
+    public DishListFragment(MyPlace place) {
+        myPlace = place;
+    }
 
     @Override
     public void onItemClick(Dish dish) {
@@ -51,6 +59,9 @@ public class DishListFragment extends Fragment implements DishAdapter.DishListen
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.dish_list, null);
 
+        TextView title = v.findViewById(R.id.place_title);
+        title.setText(myPlace.getName());
+
         list = v.findViewById(R.id.dish_list);
 
         list.setLayoutManager(
@@ -68,6 +79,7 @@ public class DishListFragment extends Fragment implements DishAdapter.DishListen
         };
 
         mDishListViewModel = ViewModelProviders.of(this).get(DishListViewModel.class);
+        mDishListViewModel.refresh(myPlace.getId());
         mDishListViewModel.getDishList().observe(getViewLifecycleOwner(), observer);
 
         Handler handler =  new Handler();

@@ -13,6 +13,9 @@ public interface PlacesApi {
         public int deliveryTime;
         public int minCost;
         public float grade;
+        public float longitude;
+        public float latitude;
+        public String image;
     }
 
     class PlacesResponse {

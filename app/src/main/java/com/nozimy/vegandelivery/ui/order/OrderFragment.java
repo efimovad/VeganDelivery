@@ -19,12 +19,18 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.nozimy.vegandelivery.R;
+import com.nozimy.vegandelivery.db.model.Order;
 
 public class OrderFragment extends Fragment {
 
     private View mRoot;
     private GoogleMap mMap;
     private MapView mapView;
+    private Order mOrder;
+
+    public OrderFragment(Order order) {
+        mOrder = order;
+    }
 
     @Nullable
     @Override
@@ -47,6 +53,7 @@ public class OrderFragment extends Fragment {
             //googleMap.setMyLocationEnabled(true);
 
             // For dropping a marker at a point on the Map
+
             LatLng sydney = new LatLng(55.798086,37.6048852);
             googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
 

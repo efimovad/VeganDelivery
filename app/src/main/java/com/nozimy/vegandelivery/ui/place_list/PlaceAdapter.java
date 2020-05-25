@@ -1,8 +1,10 @@
 package com.nozimy.vegandelivery.ui.place_list;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -24,6 +26,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyHolder> {
 
     public interface AdapterListener {
         void onItemClick(MyPlace myPlace);
+        void loadPlaceImage(ImageView view, String url);
     }
 
     public void setListener(AdapterListener listener) {
@@ -61,6 +64,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyHolder> {
         holder.grade.setText(myPlace.getGradeString());
         holder.minOrderCost.setText(myPlace.getMinOrderCostString());
         holder.bindClickListener(position);
+        listener.loadPlaceImage(holder.image, myPlace.getImage());
     }
 
     @Override
@@ -76,6 +80,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyHolder> {
         private TextView minOrderCost;
         private TextView grade;
         private TextView deliveryTime;
+        private ImageView image;
 
         public MyHolder(@NonNull View itemView, int viewType) {
             super(itemView);
@@ -83,7 +88,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyHolder> {
             deliveryTime = itemView.findViewById(R.id.place_delivery_time);
             grade = itemView.findViewById(R.id.place_grade);
             minOrderCost = itemView.findViewById(R.id.place_min_cost);
-
+            image = itemView.findViewById(R.id.place_avatar);
         }
 
         // TODO: check why need final

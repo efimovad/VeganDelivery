@@ -3,6 +3,7 @@ package com.nozimy.vegandelivery.db.entity;
 import android.annotation.SuppressLint;
 
 import com.nozimy.vegandelivery.db.model.Dish;
+import com.nozimy.vegandelivery.db.model.MyPlace;
 import com.nozimy.vegandelivery.db.model.Order;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class OrderEntity implements Order {
     private String address;
     private ArrayList<Item> mItems = new ArrayList<>();
     private int mTotalPrice = 0;
+    private MyPlace mMyPlace;
 
     private int find(Dish dish) {
         int id = dish.getId();
@@ -67,8 +69,11 @@ public class OrderEntity implements Order {
 
     @Override
     public void clear() {
-        mItems.clear();
+        if (!mItems.isEmpty()) {
+            mItems.clear();
+        }
         mTotalPrice = 0;
+        mMyPlace = null;
     }
 
     @Override

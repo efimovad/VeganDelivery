@@ -1,7 +1,5 @@
 package com.nozimy.vegandelivery.db.model;
 
-import android.content.ClipData;
-
 public interface Order {
     int increment(Dish dish);
     int decrement(Dish dish);

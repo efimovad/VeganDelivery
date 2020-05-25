@@ -30,19 +30,18 @@ public class DishesInteractor {
         mDishes.setValue(Collections.<Dish>emptyList());
     }
 
-
     public DishesInteractor(Context context) {
         mContext = context;
         mDishesApi = ApiRepo.from(mContext).getDishesApi();
-        refresh();
+        refresh(1);
     }
 
     public LiveData<List<Dish>> getDishes() {
         return mDishes;
     }
 
-    public void refresh() {
-        mDishesApi.getAll().enqueue(new Callback<DishesApi.DishesResponse>() {
+    public void refresh(int placeId) {
+        mDishesApi.getAll(placeId).enqueue(new Callback<DishesApi.DishesResponse>() {
             @Override
             public void onResponse(Call<DishesApi.DishesResponse> call,
                                    Response<DishesApi.DishesResponse> response) {
@@ -61,12 +60,16 @@ public class DishesInteractor {
     private static List<Dish> transform(DishesApi.DishesResponse dishesResponse) {
         List<DishesApi.DishPlain> plains = dishesResponse.dishes;
         List<Dish> result = new ArrayList<>();
-        for (DishesApi.DishPlain dishPlain : plains) {
-            try {
-                DishEntity dish = map(dishPlain);
-                result.add(dish);
-            } catch (ParseException e) {
-                e.printStackTrace();
+        if (plains != null) {
+            for (DishesApi.DishPlain dishPlain : plains) {
+                try {
+                    DishEntity dish = map(dishPlain);
+                    if (dish != null) {
+                        result.add(dish);
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return result;

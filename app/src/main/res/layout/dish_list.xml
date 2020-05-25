@@ -6,10 +6,25 @@
     android:gravity="bottom"
     tools:context=".MainActivity">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/place_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+        <TextView
+            android:id="@+id/place_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="hello"
+            style="@style/TitleText"
+            />
+    </androidx.cardview.widget.CardView>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/dish_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/place_info"
         >
     </androidx.recyclerview.widget.RecyclerView>
 </RelativeLayout>

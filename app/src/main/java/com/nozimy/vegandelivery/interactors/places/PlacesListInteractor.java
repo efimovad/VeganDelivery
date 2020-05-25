@@ -47,11 +47,8 @@ public class PlacesListInteractor {
         mContext = context;
         mPlacesApi = ApiRepo.from(mContext).getPlacesApi();
         mDataRepository = new DataRepository(context);
-
         mPlaces = mDataRepository.getPlaces();
-
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-
         refresh();
     }
 
@@ -129,7 +126,10 @@ public class PlacesListInteractor {
                 placePlain.name,
                 placePlain.deliveryTime,
                 placePlain.minCost,
-                placePlain.grade
+                placePlain.grade,
+                placePlain.image,
+                placePlain.latitude,
+                placePlain.longitude
         );
     }
 

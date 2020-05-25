@@ -5,4 +5,9 @@ public interface MyPlace {
     String getDeliveryTimeString();
     String getMinOrderCostString();
     String getGradeString();
+    String getImage();
+
+    float getLatitude();
+    float getLongitude();
+    int getId();
 }

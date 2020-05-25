@@ -31,7 +31,6 @@ public class BasketFragment extends Fragment {
     private View root;
     private OrderAdapter adapter;
 
-
     public interface BasketFragmentListener {
         void onSubmitOrder();
     };

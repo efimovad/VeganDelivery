@@ -26,11 +26,19 @@ public class PlaceEntity implements MyPlace {
     @ColumnInfo(name = "grade")
     private float grade;
 
+    @ColumnInfo(name = "longitude")
+    private float longitude;
+
+    @ColumnInfo(name = "latitude")
+    private float latitude;
+
+    @ColumnInfo(name = "image")
+    private String image;
+
     @Override
     public String getName() {
         return this.name;
     }
-
 
     @Override
     public String getDeliveryTimeString() {
@@ -47,12 +55,32 @@ public class PlaceEntity implements MyPlace {
         return String.format("%.2f", this.grade);
     }
 
-    public PlaceEntity(int id, String name, int deliveryTime, int minOrderCost, float grade){
+    @Override
+    public String getImage() {
+        return image;
+    }
+
+    @Override
+    public float getLatitude() {
+        return latitude;
+    }
+
+    @Override
+    public float getLongitude() {
+        return longitude;
+    }
+
+
+    public PlaceEntity(int id, String name, int deliveryTime, int minOrderCost, float grade,
+                       String image, float latitude, float longitude){
         this.id = id;
         this.name = name;
         this.deliveryTime = deliveryTime;
         this.minOrderCost = minOrderCost;
         this.grade = grade;
+        this.image = image;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public int getId() {
@@ -67,6 +95,8 @@ public class PlaceEntity implements MyPlace {
         this.name = name;
     }
 
+    public void setImage(String image) { this.image = image; }
+
     public void setDeliveryTime(int deliveryTime) {
         this.deliveryTime = deliveryTime;
     }
@@ -78,6 +108,10 @@ public class PlaceEntity implements MyPlace {
     public void setGrade(float grade) {
         this.grade = grade;
     }
+
+    public void setLongitude(float longitude) { this.longitude = longitude; }
+
+    public void setLatitude(float latitude) { this.latitude = latitude; }
 
     public int getDeliveryTime() {
         return deliveryTime;

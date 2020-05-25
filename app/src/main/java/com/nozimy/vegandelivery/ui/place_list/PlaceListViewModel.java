@@ -12,7 +12,6 @@ import com.nozimy.vegandelivery.db.entity.PlaceEntity;
 import com.nozimy.vegandelivery.db.model.MyPlace;
 import com.nozimy.vegandelivery.interactors.places.PlacesListInteractor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PlaceListViewModel extends AndroidViewModel {

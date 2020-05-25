@@ -19,11 +19,8 @@ import java.util.List;
 
 public class DishAdapter extends RecyclerView.Adapter<com.nozimy.vegandelivery.ui.dish_list.DishAdapter.MyHolder> {
     private DishListener listener;
-    private List<Dish> dishes = new ArrayList<>();;
-
-    DishAdapter() {
-
-    }
+    private List<Dish> dishes = new ArrayList<>();
+    public static final int MAX_TITLE_LEN = 25;
 
     public interface DishListener {
         void onItemClick(Dish dish);
@@ -60,7 +57,14 @@ public class DishAdapter extends RecyclerView.Adapter<com.nozimy.vegandelivery.u
     public void onBindViewHolder(@NonNull com.nozimy.vegandelivery.ui.dish_list.DishAdapter.MyHolder holder, int position) {
         Dish dish = dishes.get(position);
 
-        holder.name.setText(dish.getName());
+
+        if (dish.getName().length() < MAX_TITLE_LEN) {
+            holder.name.setText(dish.getName());
+        } else {
+            String dishName = dish.getName().substring(0, MAX_TITLE_LEN).concat("...");
+            holder.name.setText(dishName);
+        }
+
         holder.cost.setText(dish.getCostString());
         holder.params.setText(dish.getWeightString()+ " " +dish.getСalories());
 
