@@ -12,15 +12,20 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.nozimy.vegandelivery.db.entity.DishEntity;
 import com.nozimy.vegandelivery.db.entity.OrderEntity;
 import com.nozimy.vegandelivery.db.model.Dish;
 import com.nozimy.vegandelivery.db.model.Order;
 import com.nozimy.vegandelivery.db.model.MyPlace;
+import com.nozimy.vegandelivery.db.model.Person;
 import com.nozimy.vegandelivery.ui.auth.AuthFragment;
+import com.nozimy.vegandelivery.ui.order.ItemListFragment;
 import com.nozimy.vegandelivery.ui.order.OrderFragment;
 import com.nozimy.vegandelivery.ui.basket.BasketFragment;
 import com.nozimy.vegandelivery.ui.dish_list.DishDialogFragment;
 import com.nozimy.vegandelivery.ui.dish_list.DishListFragment;
+import com.nozimy.vegandelivery.ui.order.OrderListFragment;
+import com.nozimy.vegandelivery.ui.personal.PersonalFragment;
 import com.nozimy.vegandelivery.ui.place_list.PlaceListFragment;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,13 +34,16 @@ import androidx.fragment.app.Fragment;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements DishListFragment.ListFragmentListener,
         PlaceListFragment.ListFragmentListener,
         DishDialogFragment.DishDialogListener,
         BasketFragment.BasketFragmentListener,
-        OnMapReadyCallback {
+        OnMapReadyCallback,
+        PersonalFragment.PersonalFragmentListener,
+        AuthFragment.AuthListener {
 
     private Order mCurrentOrder = new OrderEntity();
     private Boolean isLargeLayout;
@@ -72,6 +80,7 @@ public class MainActivity extends AppCompatActivity
                         break;
                     case R.id.navigation_account:
                         selected = new AuthFragment();
+                        ((AuthFragment) selected).setListener(this);
                         break;
                 }
 
@@ -135,6 +144,53 @@ public class MainActivity extends AppCompatActivity
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
+
+    @Override
+    public void clickOnFavoriteButton() {
+
+    }
+
+    @Override
+    public void clickOnPersonalButton() {
+    }
+
+    @Override
+    public void clickOnOrdersButton() {
+        Order order = new OrderEntity();
+        Dish dish1 = new DishEntity("test", 120, 399, 200, "test test test", "");
+        order.increment(dish1);
+
+        ArrayList<Order> orders = new ArrayList<>();
+        orders.add(order);
+        orders.add(order);
+
+        Fragment ordersListFragment = new OrderListFragment(orders);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, ordersListFragment)
+                .commit();
+
+//        Fragment itemListFragment = new ItemListFragment(order);
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .replace(R.id.fragment_container, itemListFragment)
+//                .commit();
+    }
+
+    @Override
+    public void clickOnSalesButton() {
+
+    }
+
+    @Override
+    public void openPersonal() {
+        Fragment personalFragment = new PersonalFragment();
+        getSupportFragmentManager()
+            .beginTransaction()
+            .replace(R.id.fragment_container, personalFragment)
+            .commit();
+        ((PersonalFragment)personalFragment).setListener(this);
     }
 }
 

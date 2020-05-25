@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,6 +29,7 @@ public class DishDialogFragment extends BottomSheetDialogFragment {
     public interface DishDialogListener {
         int increment(Dish dish);
         int decrement(Dish dish);
+        void loadImage(ImageView view, String url);
     };
 
     @Nullable
@@ -56,6 +58,9 @@ public class DishDialogFragment extends BottomSheetDialogFragment {
         price.setText(mDish.getCostString());
 
         setCount(mCount);
+
+        ImageView image = mRoot.findViewById(R.id.dish_avatar);
+        listener.loadImage(image, mDish.getImage());
 
         return mRoot;
     }

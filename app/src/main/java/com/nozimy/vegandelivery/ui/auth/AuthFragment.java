@@ -27,6 +27,15 @@ import static android.content.ContentValues.TAG;
 public class AuthFragment extends Fragment {
     private GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 0 ;
+    private AuthListener listener;
+
+    public void setListener(AuthListener listener) {
+        this.listener = listener;
+    }
+
+    public interface AuthListener {
+        void openPersonal();
+    }
 
     private AuthViewModel mAuthViewModel;
 
@@ -39,10 +48,13 @@ public class AuthFragment extends Fragment {
         if(account != null){
 //            Toast.makeText(getActivity(),"Привет, " + account.getDisplayName(),Toast.LENGTH_LONG).show();
 
-            getFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, new PersonalFragment())
-                    .commit();
+//            PersonalFragment personalFragment = new PersonalFragment();
+//            getFragmentManager()
+//                    .beginTransaction()
+//                    .replace(R.id.fragment_container, personalFragment)
+//                    .commit();
+            listener.openPersonal();
+
         } else {
 //            Toast.makeText(getActivity(),"Вы не авторизованы", Toast.LENGTH_LONG).show();
         }

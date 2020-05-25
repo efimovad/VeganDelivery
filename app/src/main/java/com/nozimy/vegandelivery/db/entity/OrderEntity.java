@@ -8,8 +8,6 @@ import com.nozimy.vegandelivery.db.model.Order;
 
 import java.util.ArrayList;
 
-
-
 public class OrderEntity implements Order {
     private String address;
     private ArrayList<Item> mItems = new ArrayList<>();
@@ -98,16 +96,6 @@ public class OrderEntity implements Order {
                 mItems.get(position).dish.getCost() * mItems.get(position).count);
     }
 
-    private class Item {
-        Dish dish;
-        int count;
-
-        public Item(Dish dish) {
-            this.dish = dish;
-            this.count = 1;
-        }
-    }
-
     @Override
     public String toString() {
         String res = "";
@@ -118,6 +106,11 @@ public class OrderEntity implements Order {
         }
 
         return res;
+    }
+
+    @Override
+    public ArrayList<Item> getItems() {
+        return mItems;
     }
 
     @Override

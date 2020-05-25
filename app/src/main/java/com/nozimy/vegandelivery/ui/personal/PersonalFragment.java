@@ -45,8 +45,6 @@ public class PersonalFragment extends Fragment {
         this.listener = listener;
     }
 
-    public PersonalFragment() {}
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -64,6 +62,8 @@ public class PersonalFragment extends Fragment {
 
         Button changePersonButton = root.findViewById(R.id.item);
         Button ordersButton = root.findViewById(R.id.orders);
+        ordersButton.setOnClickListener(v -> listener.clickOnOrdersButton());
+
         Button favoritePlacesButton = root.findViewById(R.id.favorite_places);
 
         changePersonButton.setOnClickListener(new View.OnClickListener() {
