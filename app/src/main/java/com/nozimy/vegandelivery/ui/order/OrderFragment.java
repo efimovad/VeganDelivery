@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -49,10 +51,6 @@ public class OrderFragment extends Fragment {
 
         mapView.getMapAsync(googleMap -> {
             mMap = googleMap;
-            // For showing a move to my location button
-            //googleMap.setMyLocationEnabled(true);
-
-            // For dropping a marker at a point on the Map
 
             LatLng sydney = new LatLng(55.798086,37.6048852);
             googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
@@ -60,8 +58,7 @@ public class OrderFragment extends Fragment {
             LatLng home = new LatLng(55.7678096,37.6707284);
             googleMap.addMarker(new MarkerOptions().position(home).title("Marker Title").snippet("Marker Description"));
 
-            // For zooming automatically to the location of the marker
-            CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(14).build();
+            //CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(14).build();
 
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
@@ -78,38 +75,22 @@ public class OrderFragment extends Fragment {
 
             int width = getResources().getDisplayMetrics().widthPixels;
             int height = getResources().getDisplayMetrics().heightPixels;
-            int padding = (int) (width * 0.25); // offset from edges of the map 10% of screen
+            int padding = (int) (width * 0.25);
 
             CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
             mMap.animateCamera(cu);
 
         });
 
+        Button payButton = mRoot.findViewById(R.id.order_pay_button);
+        View.OnClickListener payListener = v -> {
+            OrderViewModel orderListViewModel = ViewModelProviders.of(this).get(OrderViewModel.class);
+            orderListViewModel.createOrder(2, mOrder);
+            mOrder.clear();
+        };
+        payButton.setOnClickListener(payListener);
 
         return mRoot;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        mapView.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        mapView.onPause();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mapView.onDestroy();
-    }
-
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        mapView.onLowMemory();
-    }
 }

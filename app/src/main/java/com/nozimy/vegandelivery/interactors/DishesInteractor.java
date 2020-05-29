@@ -33,7 +33,6 @@ public class DishesInteractor {
     public DishesInteractor(Context context) {
         mContext = context;
         mDishesApi = ApiRepo.from(mContext).getDishesApi();
-        refresh(1);
     }
 
     public LiveData<List<Dish>> getDishes() {

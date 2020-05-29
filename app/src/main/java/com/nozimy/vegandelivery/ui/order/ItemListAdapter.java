@@ -47,7 +47,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<com.nozimy.vegandelive
         }
 
         holder.price.setText(mOrder.getPrice(position));
-        //holder.count.setText(mOrder.getCount(position));
+        holder.count.setText(Integer.toString(mOrder.getCount(position)));
     }
 
     @Override

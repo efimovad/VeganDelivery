@@ -37,11 +37,6 @@ public class DishAdapter extends RecyclerView.Adapter<com.nozimy.vegandelivery.u
         notifyItemInserted(dishes.size()-1);
     }
 
-    //public void addItem() {
-    //DataSource.getInstance().updateData();
-    //updateWith(DataSource.getInstance().getData());
-    //}
-
     @NonNull
     @Override
     public com.nozimy.vegandelivery.ui.dish_list.DishAdapter.MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -81,7 +76,6 @@ public class DishAdapter extends RecyclerView.Adapter<com.nozimy.vegandelivery.u
     class MyHolder extends RecyclerView.ViewHolder {
         private TextView name;
         private TextView cost;
-        private TextView ingredients;
         private TextView params;
         private ImageView image;
 

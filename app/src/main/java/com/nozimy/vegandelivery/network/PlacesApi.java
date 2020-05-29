@@ -4,6 +4,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 
 public interface PlacesApi {
 
@@ -16,6 +17,7 @@ public interface PlacesApi {
         public float longitude;
         public float latitude;
         public String image;
+        public String logo;
     }
 
     class PlacesResponse {

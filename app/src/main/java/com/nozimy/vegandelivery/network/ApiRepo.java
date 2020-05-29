@@ -18,6 +18,7 @@ public class ApiRepo {
     private final OkHttpClient mOkHttpClient;
     private final PlacesApi mPlacesApi;
     private final DishesApi mDishesApi;
+    private final OrdersApi mOrdersApi;
 
     public ApiRepo(){
         mOkHttpClient = new OkHttpClient()
@@ -34,11 +35,12 @@ public class ApiRepo {
 
         mPlacesApi = retrofit.create(PlacesApi.class);
         mDishesApi = retrofit.create(DishesApi.class);
+        mOrdersApi = retrofit.create(OrdersApi.class);
     }
 
-    public PlacesApi getPlacesApi(){
-        return mPlacesApi;
-    }
+    public PlacesApi getPlacesApi(){ return mPlacesApi; }
+
+    public OrdersApi getOrdersApi() { return mOrdersApi; }
 
     public DishesApi getDishesApi(){
         return mDishesApi;

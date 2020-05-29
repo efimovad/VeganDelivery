@@ -4,7 +4,12 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorLightPink">#F8AFAF</color>
+    <color name="colorLightLightPink">#FCE8E8</color>
     <color name="colorGrey">#4E4E4E</color>
     <color name="colorLightGrey">#C4C4C4</color>
     <color name="colorWhite">#FFFFFF</color>
+
+    <color name="colorDelivered">#008577</color>
+    <color name="colorInProcess">#0d98ba</color>
+    <color name="colorCanceled">#D81B60</color>
 </resources>

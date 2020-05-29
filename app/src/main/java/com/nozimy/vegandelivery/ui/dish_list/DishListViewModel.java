@@ -28,5 +28,4 @@ public class DishListViewModel extends AndroidViewModel {
     public void refresh(int cafeId) {
         interactor.refresh(cafeId);
     }
-
 }

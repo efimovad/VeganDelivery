@@ -9,4 +9,7 @@ public interface Dish {
     String getСalories();
     String getIngredients();
     String getImage();
+
+    //TODO: delete
+    void setId(int id);
 }

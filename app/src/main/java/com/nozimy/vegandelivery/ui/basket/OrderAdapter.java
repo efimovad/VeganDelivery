@@ -22,7 +22,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyHolder> {
     @Override
     public OrderAdapter.MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        int layoutToInflate = R.layout.order_item;
+        int layoutToInflate = R.layout.basket_item;
 
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(layoutToInflate, parent, false);

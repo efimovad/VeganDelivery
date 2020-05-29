@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.libraries.places.api.model.Place;
 import com.nozimy.vegandelivery.R;
 import com.nozimy.vegandelivery.db.entity.DishEntity;
 import com.nozimy.vegandelivery.db.model.Dish;
@@ -28,12 +29,12 @@ import java.util.List;
 
 public class DishListFragment extends Fragment implements DishAdapter.DishListener {
     private DishListFragment.ListFragmentListener listener;
-
     private RecyclerView list;
     private DishAdapter adapter;
     private List<Dish> mDishList;
     private DishListViewModel mDishListViewModel;
     private MyPlace myPlace;
+
 
     public DishListFragment(MyPlace place) {
         myPlace = place;
@@ -41,7 +42,7 @@ public class DishListFragment extends Fragment implements DishAdapter.DishListen
 
     @Override
     public void onItemClick(Dish dish) {
-        listener.onDetailsItem(dish);
+        listener.onDetailsItem(dish, myPlace);
     }
 
     @Override
@@ -50,7 +51,7 @@ public class DishListFragment extends Fragment implements DishAdapter.DishListen
     }
 
     public interface ListFragmentListener {
-        void onDetailsItem(Dish dish);
+        void onDetailsItem(Dish dish, MyPlace place);
         void loadImage(ImageView view, String url);
     };
 

@@ -23,6 +23,7 @@
     <string name="basket_title">Корзина</string>
     <string name="basket_empty">Ваша корзина пуста</string>
     <string name="basket_clear">Очистить</string>
+    <string name="notification_basket_clear">Очистить козину</string>
 
     <string name="order_flat">кв./офис</string>
     <string name="order_floor">этаж</string>
@@ -32,6 +33,7 @@
     <string name="order_pay_button">Оплатить</string>
     <string name="order_total_price">Итого</string>
     <string name="order_delivery_price">Доставка</string>
+    <string name="orders_title">Мои заказы</string>
 
     <string name="favourite_title">Избранное</string>
 

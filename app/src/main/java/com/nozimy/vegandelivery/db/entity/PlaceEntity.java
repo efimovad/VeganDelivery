@@ -35,6 +35,13 @@ public class PlaceEntity implements MyPlace {
     @ColumnInfo(name = "image")
     private String image;
 
+    public String getLogo() {
+        return logo;
+    }
+
+    @ColumnInfo(name = "logo")
+    private String logo;
+
     @Override
     public String getName() {
         return this.name;
@@ -72,7 +79,7 @@ public class PlaceEntity implements MyPlace {
 
 
     public PlaceEntity(int id, String name, int deliveryTime, int minOrderCost, float grade,
-                       String image, float latitude, float longitude){
+                       String image, float latitude, float longitude, String logo){
         this.id = id;
         this.name = name;
         this.deliveryTime = deliveryTime;
@@ -81,6 +88,7 @@ public class PlaceEntity implements MyPlace {
         this.image = image;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.logo = logo;
     }
 
     public int getId() {

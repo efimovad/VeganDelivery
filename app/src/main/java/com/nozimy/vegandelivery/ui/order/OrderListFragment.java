@@ -5,23 +5,31 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nozimy.vegandelivery.R;
 import com.nozimy.vegandelivery.db.model.Order;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class OrderListFragment extends Fragment implements OrderListAdapter.OrdersListener {
+public class OrderListFragment extends Fragment implements OrderListAdapter.OrderListener {
     private RecyclerView list;
     private OrderListAdapter adapter;
-    private ArrayList<Order> mOrders;
+    private OrderViewModel mOrderListViewModel;
+    private OrderFragmentListener listener;
 
-    public OrderListFragment(ArrayList<Order> orders) {
-        mOrders = orders;
+    public interface OrderFragmentListener {
+        void loadImage(ImageView view, String url);
+    };
+
+    public void setListener(OrderFragmentListener listener) {
+        this.listener = listener;
     }
 
     @Override
@@ -35,17 +43,19 @@ public class OrderListFragment extends Fragment implements OrderListAdapter.Orde
                 new GridLayoutManager(this.getContext(), 1)
         );
 
-        adapter = new OrderListAdapter(mOrders);
-        adapter.setListener(this);
+        adapter = new OrderListAdapter(getActivity());
         list.setAdapter(adapter);
+        adapter.setListener(this);
 
-
-        /*Observer<List<Dish>> observer = dishes -> {
-            if (dishes != null) {
-                adapter.setDishList(dishes);
+        Observer<List<Order>> observer = orders -> {
+            if (orders != null) {
+                adapter.setOrderList(orders);
             }
-        };*/
-        //getChildFragmentManager()
+        };
+
+        mOrderListViewModel = ViewModelProviders.of(this).get(OrderViewModel.class);
+        mOrderListViewModel.refresh(2);
+        mOrderListViewModel.getOrderList().observe(getViewLifecycleOwner(), observer);
 
         Handler handler =  new Handler();
         Runnable myRunnable = new Runnable() {
@@ -58,11 +68,7 @@ public class OrderListFragment extends Fragment implements OrderListAdapter.Orde
     }
 
     @Override
-    public void addItems(Order order) {
-        Fragment itemListFragment = new ItemListFragment(order);
-        getChildFragmentManager()
-            .beginTransaction()
-            .replace(R.id.fragment_container, itemListFragment)
-            .commit();
+    public void loadOrderImage(ImageView view, String url) {
+        listener.loadImage(view, url);
     }
 }

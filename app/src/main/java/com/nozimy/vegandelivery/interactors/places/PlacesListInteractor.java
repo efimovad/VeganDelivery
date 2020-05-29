@@ -129,7 +129,8 @@ public class PlacesListInteractor {
                 placePlain.grade,
                 placePlain.image,
                 placePlain.latitude,
-                placePlain.longitude
+                placePlain.longitude,
+                placePlain.logo
         );
     }
 

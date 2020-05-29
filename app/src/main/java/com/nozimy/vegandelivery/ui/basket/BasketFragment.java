@@ -23,6 +23,7 @@ import com.nozimy.vegandelivery.MainActivity;
 import com.nozimy.vegandelivery.R;
 import com.nozimy.vegandelivery.db.model.Dish;
 import com.nozimy.vegandelivery.db.model.Order;
+import com.nozimy.vegandelivery.ui.order.OrderViewModel;
 
 public class BasketFragment extends Fragment {
     private BasketFragmentListener listener;
@@ -30,9 +31,11 @@ public class BasketFragment extends Fragment {
     private RecyclerView list;
     private View root;
     private OrderAdapter adapter;
+    //private OrderViewModel mOrderListViewModel;
 
     public interface BasketFragmentListener {
         void onSubmitOrder();
+        void loadImage(ImageView view, String url);
     };
 
     public void setListener(BasketFragmentListener listener) {
@@ -42,6 +45,10 @@ public class BasketFragment extends Fragment {
     private View.OnClickListener mClearListener = v -> {
         MainActivity activity = (MainActivity) getActivity();
         Order currOrder = activity.getCurrentOrder();
+        if (currOrder == null || currOrder.isEmpty()) {
+            return;
+        }
+
         currOrder.clear();
 
         TextView empty = root.findViewById(R.id.empty_text);
@@ -50,9 +57,16 @@ public class BasketFragment extends Fragment {
         Button submitButton = root.findViewById(R.id.submit_order_button);
         submitButton.setVisibility(View.INVISIBLE);
 
+        View costView = root.findViewById(R.id.price_layout);
+        costView.setVisibility(View.INVISIBLE);
+
+        View cafeDetailsView = root.findViewById(R.id.place_info);
+        cafeDetailsView.setVisibility(View.INVISIBLE);
+
         adapter.notifyDataSetChanged();
     };
 
+    // TODO: break down into functions
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         basketViewModel =
@@ -63,7 +77,10 @@ public class BasketFragment extends Fragment {
         MainActivity activity = (MainActivity) getActivity();
         Order currOrder = activity.getCurrentOrder();
 
-        if (!currOrder.isEmpty()) {
+        View costView = root.findViewById(R.id.price_layout);
+        View cafeDetailsView = root.findViewById(R.id.place_info);
+
+        if (currOrder != null && !currOrder.isEmpty()) {
             TextView empty = root.findViewById(R.id.empty_text);
             empty.setVisibility(View.INVISIBLE);
 
@@ -75,9 +92,20 @@ public class BasketFragment extends Fragment {
                     new LinearLayoutManager(this.getContext())
             );
 
-            //adapter.setListener(this);
             adapter = new OrderAdapter(((MainActivity) getActivity()).getCurrentOrder());
             list.setAdapter(adapter);
+
+            TextView placeName = root.findViewById(R.id.place_name);
+            placeName.setText(currOrder.getCafeName());
+
+            ImageView logo = root.findViewById(R.id.logo);
+            listener.loadImage(logo, currOrder.getLogo());
+
+            TextView totalPrice = root.findViewById(R.id.order_total_price);
+            totalPrice.setText(currOrder.getTotalPrice());
+
+            costView.setVisibility(View.VISIBLE);
+            cafeDetailsView.setVisibility(View.VISIBLE);
         }
 
         Button clearButton = root.findViewById(R.id.clear_basket_button);
@@ -86,6 +114,9 @@ public class BasketFragment extends Fragment {
         Button submitButton = root.findViewById(R.id.submit_order_button);
         View.OnClickListener submitListener = v -> listener.onSubmitOrder();
         submitButton.setOnClickListener(submitListener);
+
+        //mOrderListViewModel = ViewModelProviders.of(this).get(OrderViewModel.class);
+        //mOrderListViewModel.createOrder(1, );
 
         return root;
     }

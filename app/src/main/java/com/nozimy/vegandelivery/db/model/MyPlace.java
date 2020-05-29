@@ -6,6 +6,7 @@ public interface MyPlace {
     String getMinOrderCostString();
     String getGradeString();
     String getImage();
+    String getLogo();
 
     float getLatitude();
     float getLongitude();

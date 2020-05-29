@@ -1,25 +1,26 @@
 package com.nozimy.vegandelivery;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.nozimy.vegandelivery.db.entity.DishEntity;
 import com.nozimy.vegandelivery.db.entity.OrderEntity;
 import com.nozimy.vegandelivery.db.model.Dish;
 import com.nozimy.vegandelivery.db.model.Order;
 import com.nozimy.vegandelivery.db.model.MyPlace;
-import com.nozimy.vegandelivery.db.model.Person;
 import com.nozimy.vegandelivery.ui.auth.AuthFragment;
-import com.nozimy.vegandelivery.ui.order.ItemListFragment;
 import com.nozimy.vegandelivery.ui.order.OrderFragment;
 import com.nozimy.vegandelivery.ui.basket.BasketFragment;
 import com.nozimy.vegandelivery.ui.dish_list.DishDialogFragment;
@@ -31,11 +32,6 @@ import com.nozimy.vegandelivery.ui.place_list.PlaceListFragment;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.ArrayList;
-
 public class MainActivity extends AppCompatActivity
         implements DishListFragment.ListFragmentListener,
         PlaceListFragment.ListFragmentListener,
@@ -43,7 +39,8 @@ public class MainActivity extends AppCompatActivity
         BasketFragment.BasketFragmentListener,
         OnMapReadyCallback,
         PersonalFragment.PersonalFragmentListener,
-        AuthFragment.AuthListener {
+        AuthFragment.AuthListener,
+        OrderListFragment.OrderFragmentListener {
 
     private Order mCurrentOrder = new OrderEntity();
     private Boolean isLargeLayout;
@@ -94,16 +91,30 @@ public class MainActivity extends AppCompatActivity
 
 
     @Override
-    public void onDetailsItem(Dish dish) {
-        DishDialogFragment dishDialogFragment = new DishDialogFragment(dish, mCurrentOrder.getCount(dish));
+    public void onDetailsItem(Dish dish, MyPlace place) {
+        DishDialogFragment dishDialogFragment = new DishDialogFragment(dish, mCurrentOrder.getCount(dish), place);
         dishDialogFragment.show(getSupportFragmentManager(), "dish bottom sheet");
         dishDialogFragment.setListener(this);
     }
 
     @Override
     public void loadImage(ImageView view, String url) {
-        LoadImage loadImage = new LoadImage(view);
-        loadImage.execute(url);
+        Glide.with(this).load(url).into(view);
+    }
+
+    @Override
+    public void showNotification(String name) {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.conflict_notification);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+
+        Button clearButton = dialog.findViewById(R.id.clean_button);
+        View.OnClickListener mCorkyListener = v -> {
+            mCurrentOrder.clear();
+            dialog.dismiss();
+        };
+        clearButton.setOnClickListener(mCorkyListener);
     }
 
     @Override
@@ -120,7 +131,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public int increment(Dish dish) { return mCurrentOrder.increment(dish); }
+    public int increment(Dish dish, MyPlace place) { return mCurrentOrder.increment(dish, place); }
 
     @Override
     public int decrement(Dish dish) {
@@ -157,26 +168,12 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void clickOnOrdersButton() {
-        Order order = new OrderEntity();
-        Dish dish1 = new DishEntity("test", 120, 399, 200, "test test test", "");
-        order.increment(dish1);
-
-        ArrayList<Order> orders = new ArrayList<>();
-        orders.add(order);
-        orders.add(order);
-        orders.add(order);
-
-        Fragment ordersListFragment = new OrderListFragment(orders);
+        Fragment ordersListFragment = new OrderListFragment();
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, ordersListFragment)
                 .commit();
-
-//        Fragment itemListFragment = new ItemListFragment(order);
-//        getSupportFragmentManager()
-//                .beginTransaction()
-//                .replace(R.id.fragment_container, itemListFragment)
-//                .commit();
+        ((OrderListFragment)ordersListFragment).setListener(this);
     }
 
     @Override
@@ -192,32 +189,6 @@ public class MainActivity extends AppCompatActivity
             .replace(R.id.fragment_container, personalFragment)
             .commit();
         ((PersonalFragment)personalFragment).setListener(this);
-    }
-}
-
-class LoadImage extends AsyncTask<String, Void, Bitmap> {
-    ImageView imageView;
-
-    public LoadImage(ImageView ivResult) {
-        this.imageView = ivResult;
-    }
-
-    @Override
-    protected Bitmap doInBackground(String... strings) {
-        String url = strings[0];
-        Bitmap bitmap = null;
-        try {
-            InputStream inputStream = new URL(url).openStream();
-            bitmap = BitmapFactory.decodeStream(inputStream);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return bitmap;
-    }
-
-    @Override
-    protected void onPostExecute(Bitmap bitmap) {
-        this.imageView.setImageBitmap(bitmap);
     }
 }
 
