@@ -19,7 +19,7 @@ public class PersonEditViewModel extends AndroidViewModel {
         mAccountInteractor = new AccountInteractor(getApplication());
     }
 
-    LiveData<PersonEntity> getCurrentPerson(){
+    public LiveData<PersonEntity> getCurrentPerson(){
         return mAccountInteractor.getCurrentPerson();
     }
 

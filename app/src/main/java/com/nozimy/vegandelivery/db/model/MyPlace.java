@@ -11,4 +11,5 @@ public interface MyPlace {
     float getLatitude();
     float getLongitude();
     int getId();
+    int getMinOrderCost();
 }

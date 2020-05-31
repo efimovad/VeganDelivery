@@ -35,6 +35,7 @@ public class AuthFragment extends Fragment {
 
     public interface AuthListener {
         void openPersonal();
+        void setUser(String user);
     }
 
     private AuthViewModel mAuthViewModel;
@@ -45,16 +46,13 @@ public class AuthFragment extends Fragment {
     }
 
     public void  updateUI(GoogleSignInAccount account){
-        if(account != null){
-//            Toast.makeText(getActivity(),"Привет, " + account.getDisplayName(),Toast.LENGTH_LONG).show();
-
-//            PersonalFragment personalFragment = new PersonalFragment();
-//            getFragmentManager()
-//                    .beginTransaction()
-//                    .replace(R.id.fragment_container, personalFragment)
-//                    .commit();
+        if (account != null) {
             listener.openPersonal();
-
+            GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getContext());
+            if (acct != null) {
+                String email = acct.getEmail();
+                listener.setUser(email);
+            }
         } else {
 //            Toast.makeText(getActivity(),"Вы не авторизованы", Toast.LENGTH_LONG).show();
         }
@@ -65,6 +63,8 @@ public class AuthFragment extends Fragment {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
             mAuthViewModel.insertPerson(account);
+
+            account.getEmail();
 
             // Signed in successfully, show authenticated UI.
             updateUI(account);

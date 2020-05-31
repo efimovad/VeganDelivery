@@ -40,7 +40,7 @@ public class OrdersListInteractor {
         return mOrders;
     }
 
-    public void refresh(int user) {
+    public void refresh(String user) {
         mOrdersApi.getAll(user).enqueue(new Callback<OrdersApi.OrderResponse>() {
             @Override
             public void onResponse(Call<OrdersApi.OrderResponse> call,
@@ -57,8 +57,8 @@ public class OrdersListInteractor {
         });
     }
 
-    public void createPost(int user, Order order) {
-        OrderRequest request =  new OrderRequest(user, order);
+    public void createPost(Order order) {
+        OrderRequest request =  new OrderRequest(order);
         Call<OrderRequest> call = mOrdersApi.createOrder(request);
 
         call.enqueue(new Callback<OrderRequest>() {

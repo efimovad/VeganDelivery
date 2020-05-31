@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">VeganDelivery</string>
+    <string name="app_name">Vegan Delivery</string>
     <string name="title_activity_bottom_nav">BottomNavActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
@@ -7,6 +7,7 @@
     <string name="title_places">Кафе/Магазины</string>
     <string name="title_cart">Корзина</string>
     <string name="title_personal">Личное</string>
+    <string name="title_stocks">Акции</string>
 
     <string name="cafe_name">Falafel Bro</string>
     <string name="cafe_min_order_cost">Заказ от 199 р</string>

@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,7 +18,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -29,16 +30,24 @@ public class OrderFragment extends Fragment {
     private GoogleMap mMap;
     private MapView mapView;
     private Order mOrder;
+    private OrderListener listener;
 
     public OrderFragment(Order order) {
         mOrder = order;
+    }
+
+    public interface OrderListener {
+        void clickOnOrdersButton();
+    }
+
+    public void setListener(OrderListener listener) {
+        this.listener = listener;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mRoot = inflater.inflate(R.layout.fragment_submit_order, container, false);
-
         mapView = mRoot.findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);
         mapView.onResume();
@@ -52,21 +61,18 @@ public class OrderFragment extends Fragment {
         mapView.getMapAsync(googleMap -> {
             mMap = googleMap;
 
-            LatLng sydney = new LatLng(55.798086,37.6048852);
-            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
-
-            LatLng home = new LatLng(55.7678096,37.6707284);
-            googleMap.addMarker(new MarkerOptions().position(home).title("Marker Title").snippet("Marker Description"));
-
-            //CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(14).build();
+            LatLng shop = mOrder.getShopLatLng();
+            LatLng user = mOrder.getUserLatLng();
+            googleMap.addMarker(new MarkerOptions().position(shop).title("Marker Title").snippet("Marker Description"));
+            googleMap.addMarker(new MarkerOptions().position(user).title("Marker Title").snippet("Marker Description"));
 
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
             MarkerOptions marker1 = new MarkerOptions();
-            marker1.position(sydney);
+            marker1.position(shop);
 
             MarkerOptions marker2 = new MarkerOptions();
-            marker2.position(home);
+            marker2.position(user);
 
             builder.include(marker1.getPosition());
             builder.include(marker2.getPosition());
@@ -85,10 +91,17 @@ public class OrderFragment extends Fragment {
         Button payButton = mRoot.findViewById(R.id.order_pay_button);
         View.OnClickListener payListener = v -> {
             OrderViewModel orderListViewModel = ViewModelProviders.of(this).get(OrderViewModel.class);
-            orderListViewModel.createOrder(2, mOrder);
+            orderListViewModel.createOrder(mOrder);
             mOrder.clear();
+            listener.clickOnOrdersButton();
         };
         payButton.setOnClickListener(payListener);
+
+        TextView totalPrice = mRoot.findViewById(R.id.total_price);
+        totalPrice.setText(mOrder.getTotalPrice());
+
+        TextView userAddress = mRoot.findViewById(R.id.user_address);
+        userAddress.setText(mOrder.getUserAddress());
 
         return mRoot;
     }

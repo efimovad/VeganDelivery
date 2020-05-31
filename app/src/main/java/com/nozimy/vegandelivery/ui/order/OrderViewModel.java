@@ -23,11 +23,11 @@ public class OrderViewModel extends AndroidViewModel {
         return mOrderList;
     }
 
-    public void refresh(int user) {
+    public void refresh(String user) {
         interactor.refresh(user);
     }
 
-    public void createOrder(int user, Order order) {
-        interactor.createPost(user, order);
+    public void createOrder(Order order) {
+        interactor.createPost(order);
     }
 }

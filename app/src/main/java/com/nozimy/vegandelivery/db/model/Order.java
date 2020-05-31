@@ -1,5 +1,6 @@
 package com.nozimy.vegandelivery.db.model;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.nozimy.vegandelivery.db.entity.ItemEntity;
 
 import java.util.List;
@@ -25,14 +26,23 @@ public interface Order {
     String getName(int position);
     String getPrice(int position);
     String getTotalPrice();
-    String getAddress();
-
     int getCost();
+
     int getCount(Dish dish);
     int getCount(int position);
     int getStatus();
     int getCafeId();
 
+    String getUser();
+    void setUser(String user);
+
+    void setUserAddress(String address, LatLng latLng);
+    LatLng getShopLatLng();
+    LatLng getUserLatLng();
+    String getUserAddress();
+
     String toString();
     List<ItemEntity> getItems();
+
+    boolean isTotalPriceEnough();
 }

@@ -2,7 +2,7 @@ package com.nozimy.vegandelivery.db.entity;
 
 import android.annotation.SuppressLint;
 
-import com.google.gson.annotations.SerializedName;
+import com.google.android.gms.maps.model.LatLng;
 import com.nozimy.vegandelivery.db.model.Dish;
 import com.nozimy.vegandelivery.db.model.Item;
 import com.nozimy.vegandelivery.db.model.MyPlace;
@@ -13,12 +13,75 @@ import java.util.List;
 
 public class OrderEntity implements Order {
     private List<ItemEntity> mItems = new ArrayList<>();
-    private int mTotalPrice = 0;
-    private String mAddress;
-    private String mLogo;
+
+    private String user;
+
     private int mCafeId;
+    private String mLogo;
     private String mCafeName;
+    private int minPrice;
+
     private int mStatus;
+    private int mTotalPrice = 0;
+
+    private Address shopAddress;
+    private Address userAddress;
+
+    class Address {
+        String address;
+        LatLng latLng;
+        String flat;
+        String porch;
+        String floor;
+
+        Address(String address, LatLng latLng) {
+            this.address = address;
+            this.latLng = latLng;
+        }
+
+        Address(String address, float latitude, float longitude) {
+            this.address = address;
+            this.latLng = new LatLng(latitude, longitude);
+        }
+
+        void setAddressParams(String flat, String porch, String floor) {
+            this.flat = flat;
+            this.porch = porch;
+            this.floor = floor;
+        }
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public LatLng getShopLatLng() {
+        return shopAddress.latLng;
+    }
+
+    public LatLng getUserLatLng() {
+        if (userAddress == null) {
+            return null;
+        }
+        return userAddress.latLng;
+    }
+
+    @Override
+    public void setUserAddress(String address, LatLng latLng) {
+        userAddress = new Address(address, latLng);
+    }
+
+    public String getUserAddress() {
+        if (userAddress == null) {
+            return "";
+        }
+        return userAddress.address;
+    }
+
 
     public OrderEntity() {}
 
@@ -29,10 +92,13 @@ public class OrderEntity implements Order {
     @Override
     public int getCafeId() { return mCafeId; }
 
+    public boolean isTotalPriceEnough() {
+        return this.mTotalPrice >= minPrice;
+    }
+
     public OrderEntity(List<ItemEntity> mItems, int mTotalPrice, String mAddress, String mLogo, String mCafeName, int mStatus) {
         this.mItems = mItems;
         this.mTotalPrice = mTotalPrice;
-        this.mAddress = mAddress;
         this.mLogo = mLogo;
         this.mCafeName = mCafeName;
         this.mStatus = mStatus;
@@ -56,6 +122,9 @@ public class OrderEntity implements Order {
             mCafeId = place.getId();
             mCafeName = place.getName();
             mLogo = place.getLogo();
+            minPrice = place.getMinOrderCost();
+            LatLng latLng = new LatLng(place.getLatitude(), place.getLongitude());
+            shopAddress = new Address("", latLng);
         } else if (mCafeId != place.getId()) {
             return -1;
         }
@@ -95,7 +164,6 @@ public class OrderEntity implements Order {
         if (position == -1) {
             return 0;
         }
-
         return mItems.get(position).getCount();
     }
 
@@ -146,9 +214,6 @@ public class OrderEntity implements Order {
     }
 
     @Override
-    public String getAddress() { return mAddress; }
-
-    @Override
     public int getCost() {
         return mTotalPrice;
     }
@@ -161,7 +226,6 @@ public class OrderEntity implements Order {
             Item value = mItems.get(i);
             res = res + value.getName() + " " + value.getCount() + "\n";
         }
-
         return res;
     }
 

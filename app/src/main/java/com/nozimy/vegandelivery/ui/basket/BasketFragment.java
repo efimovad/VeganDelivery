@@ -1,5 +1,8 @@
 package com.nozimy.vegandelivery.ui.basket;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -9,6 +12,7 @@ import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +23,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.nozimy.vegandelivery.MainActivity;
 import com.nozimy.vegandelivery.R;
 import com.nozimy.vegandelivery.db.model.Dish;
@@ -31,7 +37,6 @@ public class BasketFragment extends Fragment {
     private RecyclerView list;
     private View root;
     private OrderAdapter adapter;
-    //private OrderViewModel mOrderListViewModel;
 
     public interface BasketFragmentListener {
         void onSubmitOrder();
@@ -112,14 +117,40 @@ public class BasketFragment extends Fragment {
         clearButton.setOnClickListener(mClearListener);
 
         Button submitButton = root.findViewById(R.id.submit_order_button);
-        View.OnClickListener submitListener = v -> listener.onSubmitOrder();
-        submitButton.setOnClickListener(submitListener);
+        View.OnClickListener submitListener = v -> {
+            if (currOrder.getUserLatLng() == null) {
+                String notification = "Необходимо задать адрес доставки";
+                showNotification(notification);
+                return;
+            }
 
-        //mOrderListViewModel = ViewModelProviders.of(this).get(OrderViewModel.class);
-        //mOrderListViewModel.createOrder(1, );
+            if (currOrder.getUser() == null) {
+                String notification = "Необходимо авторизоваться в разделе \"Личное\"";
+                showNotification(notification);
+                return;
+            }
+
+            if (!currOrder.isTotalPriceEnough()) {
+                String notification = "В корзине количество недостаточно товаров для минимальной сумме заказа";
+                showNotification(notification);
+                return;
+            }
+            listener.onSubmitOrder();
+        };
+        submitButton.setOnClickListener(submitListener);
 
         return root;
     }
 
+    void showNotification(String notification) {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.null_notification);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        TextView textView = dialog.findViewById(R.id.notification);
+        textView.setText(notification);
+
+        dialog.show();
+    }
 
 }

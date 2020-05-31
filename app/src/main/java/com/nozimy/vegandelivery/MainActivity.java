@@ -7,20 +7,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.nozimy.vegandelivery.db.entity.OrderEntity;
 import com.nozimy.vegandelivery.db.model.Dish;
 import com.nozimy.vegandelivery.db.model.Order;
 import com.nozimy.vegandelivery.db.model.MyPlace;
 import com.nozimy.vegandelivery.ui.auth.AuthFragment;
+import com.nozimy.vegandelivery.ui.favourite.FavouriteFragment;
 import com.nozimy.vegandelivery.ui.order.OrderFragment;
 import com.nozimy.vegandelivery.ui.basket.BasketFragment;
 import com.nozimy.vegandelivery.ui.dish_list.DishDialogFragment;
@@ -28,6 +28,7 @@ import com.nozimy.vegandelivery.ui.dish_list.DishListFragment;
 import com.nozimy.vegandelivery.ui.order.OrderListFragment;
 import com.nozimy.vegandelivery.ui.personal.PersonalFragment;
 import com.nozimy.vegandelivery.ui.place_list.PlaceListFragment;
+import com.nozimy.vegandelivery.ui.stock.StockFragment;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -40,17 +41,23 @@ public class MainActivity extends AppCompatActivity
         OnMapReadyCallback,
         PersonalFragment.PersonalFragmentListener,
         AuthFragment.AuthListener,
-        OrderListFragment.OrderFragmentListener {
+        OrderListFragment.OrderFragmentListener,
+        OrderFragment.OrderListener {
 
     private Order mCurrentOrder = new OrderEntity();
     private Boolean isLargeLayout;
     private GoogleMap mMap;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        if (acct != null) {
+            String email = acct.getEmail();
+            mCurrentOrder.setUser(email);
+        }
 
         BottomNavigationView bottomNav = findViewById(R.id.navigation_view);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
@@ -59,6 +66,7 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, placeList)
+                .addToBackStack(null)
                 .commit();
 
         isLargeLayout = getResources().getBoolean(R.bool.large_layout);
@@ -84,6 +92,7 @@ public class MainActivity extends AppCompatActivity
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragment_container, selected)
+                        .addToBackStack(null)
                         .commit();
 
                 return true;
@@ -100,6 +109,16 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void loadImage(ImageView view, String url) {
         Glide.with(this).load(url).into(view);
+    }
+
+    @Override
+    public void setAddress(String address, LatLng latLng) {
+        mCurrentOrder.setUserAddress(address, latLng);
+    }
+
+    @Override
+    public String getAddress() {
+        return mCurrentOrder.getUserAddress();
     }
 
     @Override
@@ -123,6 +142,7 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, dishList)
+                .addToBackStack(null)
                 .commit();
     }
 
@@ -144,41 +164,60 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, order)
+                .addToBackStack(null)
                 .commit();
+        ((OrderFragment)order).setListener(this);
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 
     @Override
     public void clickOnFavoriteButton() {
-
-    }
-
-    @Override
-    public void clickOnPersonalButton() {
+        Fragment favouriteFragment = new FavouriteFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, favouriteFragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     @Override
     public void clickOnOrdersButton() {
-        Fragment ordersListFragment = new OrderListFragment();
+        Fragment ordersListFragment = new OrderListFragment(mCurrentOrder.getUser());
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, ordersListFragment)
+                .addToBackStack(null)
                 .commit();
         ((OrderListFragment)ordersListFragment).setListener(this);
     }
 
     @Override
     public void clickOnSalesButton() {
+        Fragment stockFragment = new StockFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, stockFragment)
+                .addToBackStack(null)
+                .commit();
+    }
 
+    @Override
+    public void clickOnLogout() {
+        Fragment authFragment = new AuthFragment();
+        getSupportFragmentManager()
+            .beginTransaction()
+            .replace(R.id.fragment_container, authFragment)
+            .commit();
+        ((AuthFragment)authFragment).setListener(this);
+    }
+
+    @Override
+    public void setUser(String user) {
+        mCurrentOrder.setUser(user);
     }
 
     @Override
@@ -187,8 +226,11 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager()
             .beginTransaction()
             .replace(R.id.fragment_container, personalFragment)
+            .addToBackStack(null)
             .commit();
         ((PersonalFragment)personalFragment).setListener(this);
     }
+
+
 }
 

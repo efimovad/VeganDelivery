@@ -15,7 +15,7 @@ import java.util.List;
 public class OrderRequest implements Serializable {
     @SerializedName("user")
     @Expose
-    int user;
+    String user;
 
     @SerializedName("cafe")
     @Expose
@@ -33,7 +33,7 @@ public class OrderRequest implements Serializable {
     @Expose
     List<Item> items;
 
-    public int getUser() {
+    public String getUser() {
         return user;
     }
 
@@ -76,11 +76,11 @@ public class OrderRequest implements Serializable {
         }
     }
 
-    public OrderRequest(int user, Order order) {
-        this.user = user;
+    public OrderRequest(Order order) {
+        this.user = order.getUser();
         this.cafe = order.getCafeId();
         this.cost = order.getCost();
-        this.address = order.getAddress();
+        this.address = order.getUserAddress();
         this.items = new ArrayList<>();
 
         List<ItemEntity> itemsFull = order.getItems();

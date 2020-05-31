@@ -23,6 +23,11 @@ public class OrderListFragment extends Fragment implements OrderListAdapter.Orde
     private OrderListAdapter adapter;
     private OrderViewModel mOrderListViewModel;
     private OrderFragmentListener listener;
+    private String user;
+
+    public OrderListFragment(String user) {
+        this.user = user;
+    }
 
     public interface OrderFragmentListener {
         void loadImage(ImageView view, String url);
@@ -54,7 +59,7 @@ public class OrderListFragment extends Fragment implements OrderListAdapter.Orde
         };
 
         mOrderListViewModel = ViewModelProviders.of(this).get(OrderViewModel.class);
-        mOrderListViewModel.refresh(2);
+        mOrderListViewModel.refresh(user);
         mOrderListViewModel.getOrderList().observe(getViewLifecycleOwner(), observer);
 
         Handler handler =  new Handler();

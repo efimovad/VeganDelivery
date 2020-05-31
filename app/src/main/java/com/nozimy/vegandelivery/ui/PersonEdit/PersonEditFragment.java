@@ -1,6 +1,7 @@
 package com.nozimy.vegandelivery.ui.PersonEdit;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,26 +42,19 @@ public class PersonEditFragment extends Fragment {
         editEmail = root.findViewById(R.id.edit_email);
         Button saveButton = root.findViewById(R.id.edit_button_save);
 
-
-        Observer<PersonEntity> observer = new Observer<PersonEntity>() {
-            @Override
-            public void onChanged(PersonEntity personEntity) {
-                if (personEntity != null) {
-                    editName.setText(personEntity.getName());
-                    editPhone.setText(personEntity.getPhone());
-                    editEmail.setText(personEntity.getEmail());
-                }
+        Observer<PersonEntity> observer = personEntity -> {
+            if (personEntity != null) {
+                editName.setText(personEntity.getName());
+                editPhone.setText(personEntity.getPhone());
+                editEmail.setText(personEntity.getEmail());
             }
         };
 
         mPersonEditViewModel.getCurrentPerson().observe(getViewLifecycleOwner(), observer);
 
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPersonEditViewModel.savePerson(editName.getText().toString(), editPhone.getText().toString(), editEmail.getText().toString());
-                Toast.makeText(getActivity(),"Сохранено",Toast.LENGTH_SHORT).show();
-            }
+        saveButton.setOnClickListener(v -> {
+            mPersonEditViewModel.savePerson(editName.getText().toString(), editPhone.getText().toString(), editEmail.getText().toString());
+            Toast.makeText(getActivity(),"Сохранено",Toast.LENGTH_SHORT).show();
         });
 
         return root;

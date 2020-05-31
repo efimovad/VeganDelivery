@@ -32,7 +32,7 @@ public interface OrdersApi {
     }
 
     @GET("/api/v1/order/{id}")
-    Call<OrdersApi.OrderResponse> getAll(@Path("id") int user);
+    Call<OrdersApi.OrderResponse> getAll(@Path("id") String user);
 
     @POST("/api/v1/order")
     Call<OrderRequest> createOrder(@Body OrderRequest request);

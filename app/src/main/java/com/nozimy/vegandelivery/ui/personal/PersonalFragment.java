@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,9 +37,10 @@ public class PersonalFragment extends Fragment {
 
     public interface PersonalFragmentListener {
         void clickOnFavoriteButton();
-        void clickOnPersonalButton();
         void clickOnOrdersButton();
         void clickOnSalesButton();
+        void clickOnLogout();
+        void setUser(String user);
     }
 
     public void setListener(PersonalFragmentListener listener) {
@@ -54,30 +56,26 @@ public class PersonalFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_personal, container, false);
 
         Button button = root.findViewById(R.id.logout_button);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                signOut();
-            }
-        });
+        button.setOnClickListener(v -> signOut());
 
         Button changePersonButton = root.findViewById(R.id.item);
         Button ordersButton = root.findViewById(R.id.orders);
         ordersButton.setOnClickListener(v -> listener.clickOnOrdersButton());
 
         Button favoritePlacesButton = root.findViewById(R.id.favorite_places);
+        favoritePlacesButton.setOnClickListener(v -> listener.clickOnFavoriteButton());
 
-        changePersonButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, new PersonEditFragment(), changePersonTag)
-                        .addToBackStack(changePersonTag)
-                        .commit();
-            }
-        });
+        Button stocksButton = root.findViewById(R.id.sales);
+        stocksButton.setOnClickListener(v -> listener.clickOnSalesButton());
+
+        changePersonButton.setOnClickListener(v -> getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new PersonEditFragment(), changePersonTag)
+                .addToBackStack(changePersonTag)
+                .commit());
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
@@ -93,10 +91,7 @@ public class PersonalFragment extends Fragment {
         mGoogleSignInClient.signOut().addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                getFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, new AuthFragment())
-                        .commit();
+                listener.clickOnLogout();
             }
         });
     }
