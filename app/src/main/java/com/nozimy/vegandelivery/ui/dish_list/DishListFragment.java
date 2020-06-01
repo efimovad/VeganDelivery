@@ -71,6 +71,7 @@ public class DishListFragment extends Fragment implements DishAdapter.DishListen
 
         adapter = new DishAdapter();
         adapter.setListener(this);
+        adapter.setHasStableIds(true);
         list.setAdapter(adapter);
 
         Observer<List<Dish>> observer = dishes -> {

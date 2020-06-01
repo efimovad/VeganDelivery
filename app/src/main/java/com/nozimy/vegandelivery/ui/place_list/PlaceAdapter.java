@@ -1,9 +1,12 @@
 package com.nozimy.vegandelivery.ui.place_list;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,20 +16,27 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nozimy.vegandelivery.R;
+import com.nozimy.vegandelivery.db.entity.PlaceEntity;
 import com.nozimy.vegandelivery.db.model.MyPlace;
 
 public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyHolder> {
     private AdapterListener listener;
     private List<MyPlace> mMyPlaces;
+    private Context context;
+
+    public PlaceAdapter(Context context) {
+        this.context = context;
+    }
 
     public void setPlaceList(List<MyPlace> myPlaces) {
-        mMyPlaces = myPlaces;
+        this.mMyPlaces = myPlaces;
         notifyDataSetChanged();
     }
 
     public interface AdapterListener {
         void onItemClick(MyPlace myPlace);
         void loadPlaceImage(ImageView view, String url);
+        void changeFavStatus(long id, boolean value, int position);
     }
 
     public void setListener(AdapterListener listener) {
@@ -39,10 +49,12 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyHolder> {
         notifyItemInserted(mMyPlaces.size()-1);
     }
 
-    //public void addItem() {
-        //DataSource.getInstance().updateData();
-        //updateWith(DataSource.getInstance().getData());
-    //}
+    public int removeAt(int position) {
+        mMyPlaces.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, mMyPlaces.size());
+        return mMyPlaces.size();
+    }
 
     @NonNull
     @Override
@@ -65,6 +77,25 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyHolder> {
         holder.minOrderCost.setText(myPlace.getMinOrderCostString());
         holder.bindClickListener(position);
         listener.loadPlaceImage(holder.image, myPlace.getImage());
+
+        View.OnClickListener oclBtnOk = v1 -> {
+            if (myPlace.getFavourite()) {
+                listener.changeFavStatus(mMyPlaces.get(position).getId(), false, position);
+                myPlace.setFavourite(false);
+            } else {
+                listener.changeFavStatus(mMyPlaces.get(position).getId(), true, position);
+                myPlace.setFavourite(true);
+            }
+            notifyItemChanged(position);
+        };
+
+        holder.favButton.setOnClickListener(oclBtnOk);
+        if (myPlace.getFavourite()) {
+            holder.favButton.setColorFilter(context.getResources().getColor(R.color.colorCanceled));
+        } else {
+            holder.favButton.setColorFilter(context.getResources().getColor(R.color.colorLightPink));
+        }
+
     }
 
     @Override
@@ -75,12 +106,18 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyHolder> {
         return mMyPlaces.size();
     }
 
+    @Override
+    public long getItemId(int position) {
+        return mMyPlaces.get(position).getId();
+    }
+
     class MyHolder extends RecyclerView.ViewHolder {
         private TextView name;
         private TextView minOrderCost;
         private TextView grade;
         private TextView deliveryTime;
         private ImageView image;
+        private ImageButton favButton;
 
         public MyHolder(@NonNull View itemView, int viewType) {
             super(itemView);
@@ -89,6 +126,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyHolder> {
             grade = itemView.findViewById(R.id.place_grade);
             minOrderCost = itemView.findViewById(R.id.place_min_cost);
             image = itemView.findViewById(R.id.place_avatar);
+            favButton = itemView.findViewById(R.id.fav_button);
         }
 
         // TODO: check why need final

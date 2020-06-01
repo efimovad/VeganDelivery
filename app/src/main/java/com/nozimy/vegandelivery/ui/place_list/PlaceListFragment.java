@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.model.LatLng;
@@ -41,7 +43,6 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class PlaceListFragment extends Fragment implements PlaceAdapter.AdapterListener {
     private ListFragmentListener listener;
-
     private RecyclerView list;
     private PlaceAdapter adapter;
     private PlaceListViewModel mPlaceListViewModel;
@@ -55,6 +56,12 @@ public class PlaceListFragment extends Fragment implements PlaceAdapter.AdapterL
 
     @Override
     public void loadPlaceImage(ImageView view, String url) { listener.loadImage(view, url); }
+
+    @Override
+    public void changeFavStatus(long id, boolean value, int position) {
+        mPlaceListViewModel.changeFavStatus(id, value);
+        //adapter.notifyItemChanged(position);
+    }
 
     public interface ListFragmentListener {
         void onDetailsItem(MyPlace myPlace);
@@ -72,9 +79,12 @@ public class PlaceListFragment extends Fragment implements PlaceAdapter.AdapterL
         list.setLayoutManager(
                 new GridLayoutManager(this.getContext(), 1)
         );
+        ((SimpleItemAnimator) list.getItemAnimator()).setSupportsChangeAnimations(false);
 
-        adapter = new PlaceAdapter();
+        adapter = new PlaceAdapter(getContext());
         adapter.setListener(this);
+        adapter.setHasStableIds(true);
+
         list.setAdapter(adapter);
 
         Observer<List<PlaceEntity>> observer = places -> {

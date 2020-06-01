@@ -17,14 +17,15 @@ import java.util.List;
 public class PlaceListViewModel extends AndroidViewModel {
     private PlacesListInteractor interactor = new PlacesListInteractor(getApplication());
     private LiveData<List<PlaceEntity>> mPlaceList = interactor.getPlaces();
+    private LiveData<List<PlaceEntity>> mFavPlaceList = interactor.getFavourite();
 
     public PlaceListViewModel(@NonNull Application application) {
         super(application);
     }
 
-    public LiveData<List<PlaceEntity>> getPlaceList() {
-        return mPlaceList;
-    }
+    public LiveData<List<PlaceEntity>> getPlaceList() { return mPlaceList; }
+    public LiveData<List<PlaceEntity>> getFavPlaceList() { return mFavPlaceList; }
+
 
     public void refresh() {
         interactor.refresh();
@@ -32,5 +33,9 @@ public class PlaceListViewModel extends AndroidViewModel {
 
     public List<MyPlace> transformPlaceEntityToMyPlace(List<PlaceEntity> list) {
         return PlacesListInteractor.transformPlaceEntityToMyPlace(list);
+    }
+
+    public void changeFavStatus(long id, boolean value) {
+        interactor.changeFavStatus(id, value);
     }
 }

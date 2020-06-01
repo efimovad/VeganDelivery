@@ -3,6 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
         <LinearLayout
@@ -64,8 +65,8 @@
 
                 <ImageButton
                     android:id="@+id/decrement"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
                     android:src="@drawable/ic_indeterminate_check_box_24px"
                     style="@style/Widget.MaterialComponents.Button"
                     android:tint="@color/colorLightPink"/>

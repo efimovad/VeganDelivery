@@ -30,13 +30,12 @@ public class PlacesListInteractor {
     private final Context mContext;
     private PlacesApi mPlacesApi;
     private DataRepository mDataRepository;
-
     private SharedPreferences mSharedPreferences;
-
-//    private final static MutableLiveData<List<MyPlace>> mPlaces = new MutableLiveData<>();
     private LiveData<List<PlaceEntity>> mPlaces;
-    private MediatorLiveData<List<PlaceEntity>> mPlaceLive = new MediatorLiveData<>();
+    private LiveData<List<PlaceEntity>> favPlaces;
 
+    private MediatorLiveData<List<PlaceEntity>> mPlaceLive = new MediatorLiveData<>();
+    private MediatorLiveData<List<PlaceEntity>> mFavPlaceLive = new MediatorLiveData<>();
 
     static {
 //        mPlaces.setValue(Collections.<MyPlace>emptyList());
@@ -48,34 +47,41 @@ public class PlacesListInteractor {
         mPlacesApi = ApiRepo.from(mContext).getPlacesApi();
         mDataRepository = new DataRepository(context);
         mPlaces = mDataRepository.getPlaces();
+
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         refresh();
     }
 
     public LiveData<List<PlaceEntity>> getPlaces() {
-//        return mPlaces;
 
         final LiveData<List<PlaceEntity>> entities = mDataRepository.getPlaces();
 
-        mPlaceLive.addSource(entities, new Observer<List<PlaceEntity>>() {
-            @Override
-            public void onChanged(@Nullable List<PlaceEntity> placeList) {
-//                if (placeList != null) {
-//                    mPlaceLive.postValue(placeList);
-//                }
-                if(placeList == null || placeList.isEmpty()) {
-//                    mPlaceLive.removeSource(entities);
-//                    mPlaceLive.setValue(Collections.<PlaceEntity>emptyList());
-                    refresh();
-                }else{
-                    mPlaceLive.removeSource(entities);
-                    mPlaceLive.setValue(placeList);
-                }
+        mPlaceLive.addSource(entities, placeList -> {
+            if (placeList == null || placeList.isEmpty()) {
+                refresh();
+            } else {
+                mPlaceLive.removeSource(entities);
+                mPlaceLive.setValue(placeList);
             }
         });
 
         return mPlaceLive;
     }
+
+    public LiveData<List<PlaceEntity>> getFavourite() {
+
+        final LiveData<List<PlaceEntity>> entities = mDataRepository.getFavourite();
+
+        mFavPlaceLive.addSource(entities, placeList -> {
+            if (placeList != null) {
+                mFavPlaceLive.removeSource(entities);
+                mFavPlaceLive.setValue(placeList);
+            }
+        });
+
+        return mFavPlaceLive;
+    }
+
 
     public void refresh() {
         mPlacesApi.getAll().enqueue(new Callback<PlacesApi.PlacesResponse>() {
@@ -138,5 +144,9 @@ public class PlacesListInteractor {
         for (MyPlace place: places) {
             mDataRepository.insertPlace((PlaceEntity) place);
         }
+    }
+
+    public void changeFavStatus(long id, boolean value) {
+        mDataRepository.changeFavStatus(id, value);
     }
 }

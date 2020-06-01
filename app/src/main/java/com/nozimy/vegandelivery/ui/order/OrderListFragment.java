@@ -49,8 +49,9 @@ public class OrderListFragment extends Fragment implements OrderListAdapter.Orde
         );
 
         adapter = new OrderListAdapter(getActivity());
-        list.setAdapter(adapter);
+        adapter.setHasStableIds(true);
         adapter.setListener(this);
+        list.setAdapter(adapter);
 
         Observer<List<Order>> observer = orders -> {
             if (orders != null) {

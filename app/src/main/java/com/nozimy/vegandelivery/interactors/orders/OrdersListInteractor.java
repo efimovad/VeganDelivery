@@ -99,6 +99,7 @@ public class OrdersListInteractor {
 
     private static OrderEntity map(OrdersApi.OrderPlain orderPlain) throws ParseException {
         return new OrderEntity(
+                orderPlain.id,
                 orderPlain.itemsFull,
                 orderPlain.cost,
                 orderPlain.address,

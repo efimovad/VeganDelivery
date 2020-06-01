@@ -37,6 +37,7 @@
     <string name="orders_title">Мои заказы</string>
 
     <string name="favourite_title">Избранное</string>
+    <string name="favourite_empty">Пока нет любимых кафе</string>
 
     <string name="button_save">Сохранить</string>
     <string name="edit_input_name">Фамилия Имя</string>

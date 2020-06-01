@@ -42,6 +42,9 @@ public class PlaceEntity implements MyPlace {
     @ColumnInfo(name = "logo")
     private String logo;
 
+    @ColumnInfo(name = "favourite")
+    private boolean favourite;
+
     @Override
     public String getName() {
         return this.name;
@@ -66,6 +69,9 @@ public class PlaceEntity implements MyPlace {
     public String getImage() {
         return image;
     }
+
+    @Override
+    public boolean getFavourite() { return favourite; }
 
     @Override
     public float getLatitude() {
@@ -120,6 +126,8 @@ public class PlaceEntity implements MyPlace {
     public void setLongitude(float longitude) { this.longitude = longitude; }
 
     public void setLatitude(float latitude) { this.latitude = latitude; }
+
+    public void setFavourite(boolean favourite) { this.favourite = favourite; }
 
     public int getDeliveryTime() {
         return deliveryTime;

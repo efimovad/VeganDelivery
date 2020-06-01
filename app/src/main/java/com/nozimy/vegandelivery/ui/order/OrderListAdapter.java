@@ -113,6 +113,11 @@ public class OrderListAdapter extends RecyclerView.Adapter<com.nozimy.vegandeliv
         }
     }
 
+    @Override
+    public long getItemId(int position) {
+        return mOrders.get(position).getId();
+    }
+
     public void setOrderList(List<Order> orders) {
         mOrders = orders;
         notifyDataSetChanged();

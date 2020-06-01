@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderEntity implements Order {
+    private int id;
     private List<ItemEntity> mItems = new ArrayList<>();
 
     private String user;
@@ -96,7 +97,8 @@ public class OrderEntity implements Order {
         return this.mTotalPrice >= minPrice;
     }
 
-    public OrderEntity(List<ItemEntity> mItems, int mTotalPrice, String mAddress, String mLogo, String mCafeName, int mStatus) {
+    public OrderEntity(int id, List<ItemEntity> mItems, int mTotalPrice, String mAddress, String mLogo, String mCafeName, int mStatus) {
+        this.id = id;
         this.mItems = mItems;
         this.mTotalPrice = mTotalPrice;
         this.mLogo = mLogo;
@@ -238,4 +240,6 @@ public class OrderEntity implements Order {
     public int size() {
         return mItems.size();
     }
+
+    public int getId() { return id; }
 }

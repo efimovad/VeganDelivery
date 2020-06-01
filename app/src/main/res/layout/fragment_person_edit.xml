@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edit_name"
-            android:backgroundTint="@color/colorLightLightPink"/>
+            android:backgroundTint="@color/colorWhite"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -35,13 +35,13 @@
         android:layout_marginRight="20dp"
         android:gravity="center"
         android:hint="@string/edit_input_phone"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="0dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorLightLightPink"/>
+            android:backgroundTint="@color/colorWhite"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -51,13 +51,13 @@
         android:layout_marginRight="20dp"
         android:gravity="center"
         android:hint="@string/edit_input_email"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="0dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorLightLightPink"/>
+            android:backgroundTint="@color/colorWhite"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <RelativeLayout

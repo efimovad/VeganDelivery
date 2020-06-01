@@ -45,4 +45,5 @@ public interface Order {
     List<ItemEntity> getItems();
 
     boolean isTotalPriceEnough();
+    int getId();
 }

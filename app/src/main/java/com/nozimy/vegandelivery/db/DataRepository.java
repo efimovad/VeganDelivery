@@ -24,6 +24,10 @@ public class DataRepository {
         return this.mDatabase.placeDao().getAll();
     }
 
+    public LiveData<List<PlaceEntity>> getFavourite(){
+        return this.mDatabase.placeDao().getFavourite();
+    }
+
     public LiveData<PersonEntity> getPerson(String personId){
         return this.mDatabase.personDao().getById(personId);
     }
@@ -42,5 +46,9 @@ public class DataRepository {
 
     public void insertPlace(PlaceEntity placeEntity){
         this.mDatabase.placeDao().insert(placeEntity);
+    }
+
+    public void changeFavStatus(long id, boolean value){
+        this.mDatabase.placeDao().addToFav(id, value);
     }
 }

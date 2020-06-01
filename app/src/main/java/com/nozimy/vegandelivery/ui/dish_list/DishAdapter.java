@@ -99,4 +99,9 @@ public class DishAdapter extends RecyclerView.Adapter<com.nozimy.vegandelivery.u
         dishes = dishList;
         notifyDataSetChanged();
     }
+
+    @Override
+    public long getItemId(int position) {
+        return dishes.get(position).getId();
+    }
 }

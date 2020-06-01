@@ -8,8 +8,12 @@ public interface MyPlace {
     String getImage();
     String getLogo();
 
+    boolean getFavourite();
+
     float getLatitude();
     float getLongitude();
     int getId();
     int getMinOrderCost();
+
+    void setFavourite(boolean favourite);
 }

@@ -24,6 +24,9 @@ public class OrderViewModel extends AndroidViewModel {
     }
 
     public void refresh(String user) {
+        if (mOrderList.getValue() != null) {
+            mOrderList.getValue().clear();
+        }
         interactor.refresh(user);
     }
 
