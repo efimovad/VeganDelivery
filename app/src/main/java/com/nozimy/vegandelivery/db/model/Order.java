@@ -46,4 +46,5 @@ public interface Order {
 
     boolean isTotalPriceEnough();
     int getId();
+    int find(Dish dish);
 }

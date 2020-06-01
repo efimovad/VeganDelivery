@@ -21,6 +21,7 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.textfield.TextInputLayout;
 import com.nozimy.vegandelivery.R;
 import com.nozimy.vegandelivery.db.model.Order;
 
@@ -63,8 +64,8 @@ public class OrderFragment extends Fragment {
 
             LatLng shop = mOrder.getShopLatLng();
             LatLng user = mOrder.getUserLatLng();
-            googleMap.addMarker(new MarkerOptions().position(shop).title("Marker Title").snippet("Marker Description"));
-            googleMap.addMarker(new MarkerOptions().position(user).title("Marker Title").snippet("Marker Description"));
+            googleMap.addMarker(new MarkerOptions().position(shop).title(mOrder.getCafeName()).snippet(""));
+            googleMap.addMarker(new MarkerOptions().position(user).title("Адрес доставки").snippet(""));
 
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
@@ -90,6 +91,20 @@ public class OrderFragment extends Fragment {
 
         Button payButton = mRoot.findViewById(R.id.order_pay_button);
         View.OnClickListener payListener = v -> {
+            TextInputLayout floor = mRoot.findViewById(R.id.order_floor);
+            TextInputLayout porch = mRoot.findViewById(R.id.order_porch);
+            TextInputLayout flat = mRoot.findViewById(R.id.order_flat);
+
+            int test = floor.getEditText().getText().toString().length();
+            if (floor.getEditText().getText().toString().length() == 0
+                    || porch.getEditText().getText().toString().length() == 0
+                    || flat.getEditText().getText().toString().length() == 0) {
+                Toast toast = Toast.makeText(getContext(),
+                        "Укажите номер квартиры, подъезд и этаж", Toast.LENGTH_SHORT);
+                toast.show();
+                return;
+            }
+
             OrderViewModel orderListViewModel = ViewModelProviders.of(this).get(OrderViewModel.class);
             orderListViewModel.createOrder(mOrder);
             mOrder.clear();

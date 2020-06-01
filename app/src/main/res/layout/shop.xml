@@ -46,6 +46,7 @@
                         android:tint="@color/colorLightPink"
                         style="@style/Widget.MaterialComponents.Button"
                         android:scaleType="centerCrop"
+                        android:background="@null"
                         />
                 </RelativeLayout>
                 <androidx.appcompat.widget.LinearLayoutCompat

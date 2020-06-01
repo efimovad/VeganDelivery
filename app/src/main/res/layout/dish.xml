@@ -9,6 +9,14 @@
     android:layout_margin="8dp"
     app:cardCornerRadius="10dp"
     >
+
+    <FrameLayout
+        android:id="@+id/item_selected"
+        android:background="@color/colorLightPink"
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:visibility="invisible"/>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

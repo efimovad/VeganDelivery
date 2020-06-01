@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -87,8 +88,11 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyHolder> {
                 myPlace.setFavourite(true);
             }
             notifyItemChanged(position);
+            Toast toast = Toast.makeText(context, "Добавлено в избранное", Toast.LENGTH_SHORT);
+            toast.show();
         };
 
+        holder.favButton.setImageResource(R.drawable.ic_favorite_24px);
         holder.favButton.setOnClickListener(oclBtnOk);
         if (myPlace.getFavourite()) {
             holder.favButton.setColorFilter(context.getResources().getColor(R.color.colorCanceled));

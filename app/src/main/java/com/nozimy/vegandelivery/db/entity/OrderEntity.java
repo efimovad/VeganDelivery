@@ -106,7 +106,7 @@ public class OrderEntity implements Order {
         this.mStatus = mStatus;
     }
 
-    private int find(Dish dish) {
+    public int find(Dish dish) {
         int id = dish.getId();
         for (int i = 0; i < mItems.size(); i++) {
             if (mItems.get(i).getId() == id) {

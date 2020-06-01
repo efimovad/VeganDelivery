@@ -38,6 +38,10 @@ public class OrderListAdapter extends RecyclerView.Adapter<com.nozimy.vegandeliv
         notifyItemInserted(mOrders.size()-1);
     }
 
+    public void update() {
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public com.nozimy.vegandelivery.ui.order.OrderListAdapter.MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

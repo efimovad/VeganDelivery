@@ -69,7 +69,8 @@
                     android:layout_width="wrap_content"
                     android:src="@drawable/ic_indeterminate_check_box_24px"
                     style="@style/Widget.MaterialComponents.Button"
-                    android:tint="@color/colorLightPink"/>
+                    android:tint="@color/colorLightPink"
+                    android:background="@null"/>
 
                 <TextView
                     android:id="@+id/dish_count"
@@ -85,7 +86,8 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_add_box_24px"
                     style="@style/Widget.MaterialComponents.Button"
-                    android:tint="@color/colorLightPink"/>
+                    android:tint="@color/colorLightPink"
+                    android:background="@null"/>
 
             </LinearLayout>
 

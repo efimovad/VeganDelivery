@@ -41,8 +41,8 @@ public class DishListFragment extends Fragment implements DishAdapter.DishListen
     }
 
     @Override
-    public void onItemClick(Dish dish) {
-        listener.onDetailsItem(dish, myPlace);
+    public void onItemClick(Dish dish, int position) {
+        listener.onDetailsItem(dish, myPlace, position);
     }
 
     @Override
@@ -50,9 +50,15 @@ public class DishListFragment extends Fragment implements DishAdapter.DishListen
         listener.loadImage(view, url);
     }
 
+    @Override
+    public boolean inOrder(Dish dish) {
+        return listener.inOrder(dish);
+    }
+
     public interface ListFragmentListener {
-        void onDetailsItem(Dish dish, MyPlace place);
+        void onDetailsItem(Dish dish, MyPlace place, int position);
         void loadImage(ImageView view, String url);
+        boolean inOrder(Dish dish);
     };
 
     @Override
@@ -69,7 +75,7 @@ public class DishListFragment extends Fragment implements DishAdapter.DishListen
                 new GridLayoutManager(this.getContext(), 1)
         );
 
-        adapter = new DishAdapter();
+        adapter = new DishAdapter(getContext());
         adapter.setListener(this);
         adapter.setHasStableIds(true);
         list.setAdapter(adapter);
@@ -113,5 +119,9 @@ public class DishListFragment extends Fragment implements DishAdapter.DishListen
     public void onDetach() {
         super.onDetach();
         listener = null;
+    }
+
+    public void updateOn(int position) {
+        adapter.notifyItemChanged(position);
     }
 }

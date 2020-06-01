@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,6 +29,7 @@ import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.AddressComponent;
 import com.google.android.libraries.places.api.model.AddressComponents;
 import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.TypeFilter;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
@@ -117,6 +119,9 @@ public class PlaceListFragment extends Fragment implements PlaceAdapter.AdapterL
                 getChildFragmentManager().findFragmentById(R.id.location_autocomplete_fragment);
         autocompleteFragment.setPlaceFields(fields);
         autocompleteFragment.setCountry("ru");
+
+
+        autocompleteFragment.setTypeFilter(TypeFilter.ADDRESS);
         autocompleteFragment.setHint("Укажите адрес доставки");
 
         autocompleteFragment.setText(listener.getAddress());
@@ -125,7 +130,15 @@ public class PlaceListFragment extends Fragment implements PlaceAdapter.AdapterL
             @Override
             public void onPlaceSelected(@NonNull com.google.android.libraries.places.api.model.Place place) {
                 Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
-                listener.setAddress(place.getAddress(), place.getLatLng());
+                String address = place.getAddress();
+
+                String[] addressAttr = address.split(",");
+                if (addressAttr.length < 5) {
+                    Toast toast = Toast.makeText(getContext(),
+                            "Введите номер дома", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                listener.setAddress(address, place.getLatLng());
             }
 
             @Override

@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity
     private Order mCurrentOrder = new OrderEntity();
     private Boolean isLargeLayout;
     private GoogleMap mMap;
+    private DishListFragment dishList = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,8 +101,8 @@ public class MainActivity extends AppCompatActivity
 
 
     @Override
-    public void onDetailsItem(Dish dish, MyPlace place) {
-        DishDialogFragment dishDialogFragment = new DishDialogFragment(dish, mCurrentOrder.getCount(dish), place);
+    public void onDetailsItem(Dish dish, MyPlace place, int position) {
+        DishDialogFragment dishDialogFragment = new DishDialogFragment(dish, mCurrentOrder.getCount(dish), place, position);
         dishDialogFragment.show(getSupportFragmentManager(), "dish bottom sheet");
         dishDialogFragment.setListener(this);
     }
@@ -109,6 +110,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void loadImage(ImageView view, String url) {
         Glide.with(this).load(url).into(view);
+    }
+
+    @Override
+    public boolean inOrder(Dish dish) {
+        return mCurrentOrder.find(dish) != -1;
     }
 
     @Override
@@ -137,8 +143,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public void updateOnPosition(int position) {
+        //dish
+        if (dishList != null) {
+            dishList.updateOn(position);
+        }
+    }
+
+    @Override
     public void onDetailsItem(MyPlace myPlace) {
-        DishListFragment dishList = new DishListFragment(myPlace);
+        dishList = new DishListFragment(myPlace);
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, dishList)

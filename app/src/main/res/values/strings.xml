@@ -35,6 +35,7 @@
     <string name="order_total_price">Итого</string>
     <string name="order_delivery_price">Доставка</string>
     <string name="orders_title">Мои заказы</string>
+    <string name="orders_update_button">Обновить заказы</string>
 
     <string name="favourite_title">Избранное</string>
     <string name="favourite_empty">Пока нет любимых кафе</string>

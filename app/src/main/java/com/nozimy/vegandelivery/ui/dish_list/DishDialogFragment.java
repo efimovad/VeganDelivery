@@ -26,11 +26,13 @@ public class DishDialogFragment extends BottomSheetDialogFragment {
     private Dish mDish;
     private  int mCount;
     private MyPlace mPlace;
+    private int position;
 
-    public DishDialogFragment(Dish dish, int count, MyPlace place) {
-        mDish = dish;
-        mCount = count;
-        mPlace = place;
+    public DishDialogFragment(Dish dish, int count, MyPlace place, int position) {
+        this.mDish = dish;
+        this.mCount = count;
+        this.mPlace = place;
+        this.position = position;
     }
 
     public interface DishDialogListener {
@@ -38,6 +40,7 @@ public class DishDialogFragment extends BottomSheetDialogFragment {
         int decrement(Dish dish);
         void loadImage(ImageView view, String url);
         void showNotification(String name);
+        void updateOnPosition(int position);
     };
 
     @Nullable
@@ -52,19 +55,17 @@ public class DishDialogFragment extends BottomSheetDialogFragment {
                 setCount(result);
             } else {
                 getDialog().dismiss();
-
-//                Dialog dialog = new Dialog(getContext());
-//                dialog.setContentView(R.layout.conflict_notification);
-//                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//                dialog.show();
-
                 listener.showNotification(mPlace.getName());
             }
+            listener.updateOnPosition(position);
         };
         incButton.setOnClickListener(incListener);
 
         ImageButton decButton = mRoot.findViewById(R.id.decrement);
-        View.OnClickListener decListener = v -> { setCount(listener.decrement(mDish)); };
+        View.OnClickListener decListener = v -> {
+            setCount(listener.decrement(mDish));
+            listener.updateOnPosition(position);
+        };
         decButton.setOnClickListener(decListener);
 
         TextView name = mRoot.findViewById(R.id.dish_name);
